@@ -3,7 +3,7 @@
     lunedi:'',
     martedi:'11:15–12:00',
     mercoledi:'10:30–11:15\n12:45–13:30\n20:00–21:00',
-    giovedi:'',
+    giovedi:'19:00 — Pilates Reformer',
     venerdi:'09:00–09:45',
     sabato:''
   };
@@ -55,10 +55,28 @@
     return sched;
   }
 
+  function updateThursdayWorkout(){
+    document.querySelectorAll('.schedule > div').forEach(card=>{
+      const day=card.querySelector('b');
+      if(day&&day.textContent.trim().toLowerCase()==='gio'){
+        const title=card.querySelector('strong');
+        const detail=card.querySelector('span');
+        if(title) title.textContent='Pilates Reformer';
+        if(detail) detail.textContent='19:00 · FitActive';
+      }
+    });
+  }
+
   function getValue(day){const saved=localStorage.getItem(PREFIX+day);return saved===null?DEFAULTS[day]:saved}
   function rows(text){return text.split(/\n+/).map(x=>x.trim()).filter(Boolean)}
-  function displayHtml(text){const r=rows(text);return r.length?r.map(t=>`<div class="slot"><b>${t}</b><span>Pilates</span></div>`).join(''):'<div class="no-class">Nessun Pilates</div>'}
-  function dayCard(day,label){const value=getValue(day);return `<div class="time-day" data-day="${day}"><div class="day-title"><h3>${label}</h3><button class="edit-hours" type="button">Modifica</button></div><div class="hours-view">${displayHtml(value)}</div><div class="hours-editor"><textarea aria-label="Orari ${label}" placeholder="Un orario per riga, es. 18:00–18:45">${value}</textarea><div class="editor-actions"><button class="save-hours" type="button">Salva</button><button class="cancel-hours" type="button">Annulla</button></div></div></div>`}
+  function slotHtml(t){
+    const parts=t.split(/\s+—\s+/);
+    const time=parts[0]||t;
+    const label=parts.length>1?parts.slice(1).join(' — '):'Pilates';
+    return `<div class="slot"><b>${time}</b><span>${label}</span></div>`;
+  }
+  function displayHtml(text){const r=rows(text);return r.length?r.map(slotHtml).join(''):'<div class="no-class">Nessun Pilates</div>'}
+  function dayCard(day,label){const value=getValue(day);return `<div class="time-day" data-day="${day}"><div class="day-title"><h3>${label}</h3><button class="edit-hours" type="button">Modifica</button></div><div class="hours-view">${displayHtml(value)}</div><div class="hours-editor"><textarea aria-label="Orari ${label}" placeholder="Un orario per riga. Per il nome: 19:00 — Pilates Reformer">${value}</textarea><div class="editor-actions"><button class="save-hours" type="button">Salva</button><button class="cancel-hours" type="button">Annulla</button></div></div></div>`}
 
   function bind(sched){
     sched.querySelectorAll('.time-day').forEach(card=>{
@@ -72,10 +90,11 @@
 
   function render(){
     ensureNav();
+    updateThursdayWorkout();
     const sched=ensureSection();
     if(!sched) return;
     sched.className='workout teal';
-    sched.innerHTML=`<div class="head"><div><small>FitActive Castellanza</small><h2>Orari corsi Pilates</h2></div><div class="head-actions"><button type="button" data-hours-reset>Ripristina</button></div></div><div class="timetable-wrap"><div class="timetable-note"><b>Palinsesto FitActive Castellanza</b><br>Gli orari sono modificabili direttamente qui. Le variazioni vengono salvate solo su questo dispositivo; usa <b>Ripristina</b> per tornare agli orari predefiniti.</div><div class="timetable-grid">${DAYS.map(d=>dayCard(...d)).join('')}</div></div>`;
+    sched.innerHTML=`<div class="head"><div><small>FitActive Castellanza</small><h2>Orari corsi Pilates</h2></div><div class="head-actions"><button type="button" data-hours-reset>Ripristina</button></div></div><div class="timetable-wrap"><div class="timetable-note"><b>Palinsesto FitActive Castellanza</b><br>Il giovedì alle <b>19:00</b> è previsto <b>Pilates Reformer</b>. Gli orari sono modificabili direttamente qui e le variazioni vengono salvate solo su questo dispositivo; usa <b>Ripristina</b> per tornare agli orari predefiniti.</div><div class="timetable-grid">${DAYS.map(d=>dayCard(...d)).join('')}</div></div>`;
     bind(sched);
   }
 
