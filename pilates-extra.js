@@ -6,8 +6,8 @@
     .tool-art{min-height:118px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:#faf7fb;border-bottom:1px solid var(--line);padding:16px;color:#5f3c58}
     .tool-art .ico{font-size:38px;line-height:1}.tool-art b{margin-top:7px;font-size:13px}.tool-art small{margin-top:4px;color:var(--muted);font-size:11px;line-height:1.4}
     .home-info{grid-column:1/-1;background:#fff7fb;border:1px solid #f2d4e5;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#713d5f}
-    .timetable-wrap{padding:12px}.timetable-note{background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:12px;color:#7c2d12;font-size:12px;line-height:1.5}
-    .timetable-grid{display:grid;grid-template-columns:1fr;gap:9px;margin-top:10px}.time-day{border:1px solid var(--line);border-radius:12px;padding:11px;background:#fbfcfe}.time-day h3{margin:0 0 5px;font-size:14px}.time-day p{margin:0;color:var(--muted);font-size:12px}
+    .timetable-wrap{padding:12px}.timetable-note{background:#ecfdf3;border:1px solid #abefc6;border-radius:12px;padding:12px;color:#067647;font-size:12px;line-height:1.5}
+    .timetable-grid{display:grid;grid-template-columns:1fr;gap:9px;margin-top:10px}.time-day{border:1px solid var(--line);border-radius:12px;padding:11px;background:#fbfcfe}.time-day h3{margin:0 0 7px;font-size:14px}.time-day p{margin:0;color:var(--muted);font-size:12px}.slot{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-top:1px solid #eef1f4;font-size:12px}.slot:first-of-type{border-top:0}.slot b{color:#172033}.slot span{color:var(--muted);text-align:right}.no-class{color:#98a2b3;font-size:12px}
     @media(min-width:700px){.timetable-grid{grid-template-columns:repeat(2,1fr)}}
   `;
   document.head.appendChild(style);
@@ -46,14 +46,21 @@
 
   const sched=document.createElement('section');
   sched.className='workout teal'; sched.id='w-PS';
-  sched.innerHTML=`<div class="head"><div><small>Palestra</small><h2>Orari corsi Pilates</h2></div></div><div class="timetable-wrap"><div class="timetable-note"><b>Orari da completare dalla locandina.</b><br>La foto ricevuta mostra il planning “Corsi sala grande / Corsi sala piccola”, ma il testo dei singoli slot è troppo piccolo per trascrivere gli orari senza rischio di errore. Invia un ritaglio ravvicinato della tabella e questa scheda verrà popolata con giorno, ora e sala.</div><div class="timetable-grid"><div class="time-day"><h3>Lunedì</h3><p>In attesa di trascrizione</p></div><div class="time-day"><h3>Martedì</h3><p>In attesa di trascrizione</p></div><div class="time-day"><h3>Mercoledì</h3><p>In attesa di trascrizione</p></div><div class="time-day"><h3>Giovedì</h3><p>In attesa di trascrizione</p></div><div class="time-day"><h3>Venerdì</h3><p>In attesa di trascrizione</p></div></div></div>`;
+  sched.innerHTML=`<div class="head"><div><small>FitActive Castellanza</small><h2>Orari corsi Pilates</h2></div></div><div class="timetable-wrap"><div class="timetable-note"><b>Palinsesto verificato.</b><br>Orari Pilates della sede FitActive Castellanza, Via Asti 5. Gli orari dei corsi possono essere modificati dalla palestra: controlla sempre il palinsesto FitActive prima di partire.</div><div class="timetable-grid">
+    <div class="time-day"><h3>Lunedì</h3><div class="no-class">Nessun Pilates in palinsesto</div></div>
+    <div class="time-day"><h3>Martedì</h3><div class="slot"><b>11:15–12:00</b><span>Pilates · Sala corsi</span></div></div>
+    <div class="time-day"><h3>Mercoledì</h3><div class="slot"><b>10:30–11:15</b><span>Pilates · Sala corsi</span></div><div class="slot"><b>12:45–13:30</b><span>Pilates · Sala corsi</span></div><div class="slot"><b>20:00–21:00</b><span>Pilates · Sala corsi</span></div></div>
+    <div class="time-day"><h3>Giovedì</h3><div class="no-class">Nessun Pilates in palinsesto</div></div>
+    <div class="time-day"><h3>Venerdì</h3><div class="slot"><b>09:00–09:45</b><span>Pilates · Sala corsi</span></div></div>
+    <div class="time-day"><h3>Sabato</h3><div class="no-class">Nessun Pilates in palinsesto</div></div>
+  </div></div>`;
   sec.insertAdjacentElement('afterend',sched);
 
   document.querySelectorAll('[data-pxkey]').forEach(el=>{
     const k=el.dataset.pxkey,v=localStorage.getItem(k);
     if(v!==null) el.type==='checkbox'?el.checked=(v==='1'):el.value=v;
     el.addEventListener(el.type==='checkbox'?'change':'input',()=>{
-      localStorage.setItem(k,el.type==='checkbox'?(el.checked?'1':'0'):el.value);
+      localStorage.setItem(k,el.type==='checkbox'?(el.checked?'1':'0'):el.value;
     });
   });
   sec.querySelector('[data-pxreset]')?.addEventListener('click',()=>{
