@@ -1,4 +1,4 @@
-const CACHE='scheda-palestra-github-v8';
+const CACHE='scheda-palestra-github-v9';
 const ASSETS=['./','./index.html','./manifest.webmanifest','./icon.svg','./sprite.webp','./pilates-extra.js','./pilates-hours.js'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil((async()=>{
@@ -11,7 +11,7 @@ async function withPilatesScripts(resp){
   if(!resp) return resp;
   let html=await resp.text();
   html=html.replace(/<script[^>]+pilates-extra\.js[^>]*><\/script>/g,'').replace(/<script[^>]+pilates-hours\.js[^>]*><\/script>/g,'');
-  html=html.replace('</body>','<script src="./pilates-extra.js?v=8"></script><script src="./pilates-hours.js?v=8"></script></body>');
+  html=html.replace('</body>','<script src="./pilates-extra.js?v=9"></script><script src="./pilates-hours.js?v=9"></script></body>');
   return new Response(html,{status:resp.status,statusText:resp.statusText,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-cache, no-store, must-revalidate'}});
 }
 self.addEventListener('fetch',e=>{
