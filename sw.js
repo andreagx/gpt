@@ -1,12 +1,17 @@
-const CACHE='scheda-palestra-github-v7';
+const CACHE='scheda-palestra-github-v8';
 const ASSETS=['./','./index.html','./manifest.webmanifest','./icon.svg','./sprite.webp','./pilates-extra.js','./pilates-hours.js'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
-self.addEventListener('activate',e=>e.waitUntil(Promise.all([self.clients.claim(),caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))])));
+self.addEventListener('activate',e=>e.waitUntil((async()=>{
+  await caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))));
+  await self.clients.claim();
+  const clients=await self.clients.matchAll({type:'window',includeUncontrolled:true});
+  await Promise.all(clients.map(c=>c.navigate(c.url).catch(()=>{})));
+})()));
 async function withPilatesScripts(resp){
   if(!resp) return resp;
   let html=await resp.text();
-  if(!html.includes('pilates-extra.js')) html=html.replace('</body>','<script src="./pilates-extra.js"></script></body>');
-  if(!html.includes('pilates-hours.js')) html=html.replace('</body>','<script src="./pilates-hours.js"></script></body>');
+  html=html.replace(/<script[^>]+pilates-extra\.js[^>]*><\/script>/g,'').replace(/<script[^>]+pilates-hours\.js[^>]*><\/script>/g,'');
+  html=html.replace('</body>','<script src="./pilates-extra.js?v=8"></script><script src="./pilates-hours.js?v=8"></script></body>');
   return new Response(html,{status:resp.status,statusText:resp.statusText,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-cache, no-store, must-revalidate'}});
 }
 self.addEventListener('fetch',e=>{
@@ -23,7 +28,7 @@ self.addEventListener('fetch',e=>{
     return;
   }
   if(u.pathname.endsWith('/pilates-extra.js')||u.pathname.endsWith('/pilates-hours.js')){
-    e.respondWith(fetch(e.request,{cache:'no-store'}).then(resp=>{if(resp.ok){const copy=resp.clone();caches.open(CACHE).then(c=>c.put(e.request,copy))}return resp}).catch(()=>caches.match(e.request)));
+    e.respondWith(fetch(e.request,{cache:'no-store'}).then(resp=>resp).catch(()=>caches.match(u.pathname.endsWith('/pilates-extra.js')?'./pilates-extra.js':'./pilates-hours.js')));
     return;
   }
   e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(resp=>{const copy=resp.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));return resp;})));
