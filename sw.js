@@ -1,5 +1,5 @@
-const CACHE='scheda-palestra-github-v9';
-const ASSETS=['./','./index.html','./manifest.webmanifest','./icon.svg','./sprite.webp','./pilates-extra.js','./pilates-hours.js'];
+const CACHE='scheda-palestra-github-v10';
+const ASSETS=['./','./index.html','./manifest.webmanifest','./icon.svg','./sprite.webp','./gym-women-machines.js','./pilates-extra.js','./pilates-hours.js'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil((async()=>{
   await caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))));
@@ -7,11 +7,14 @@ self.addEventListener('activate',e=>e.waitUntil((async()=>{
   const clients=await self.clients.matchAll({type:'window',includeUncontrolled:true});
   await Promise.all(clients.map(c=>c.navigate(c.url).catch(()=>{})));
 })()));
-async function withPilatesScripts(resp){
+async function withScripts(resp){
   if(!resp) return resp;
   let html=await resp.text();
-  html=html.replace(/<script[^>]+pilates-extra\.js[^>]*><\/script>/g,'').replace(/<script[^>]+pilates-hours\.js[^>]*><\/script>/g,'');
-  html=html.replace('</body>','<script src="./pilates-extra.js?v=9"></script><script src="./pilates-hours.js?v=9"></script></body>');
+  html=html
+    .replace(/<script[^>]+gym-women-machines\.js[^>]*><\/script>/g,'')
+    .replace(/<script[^>]+pilates-extra\.js[^>]*><\/script>/g,'')
+    .replace(/<script[^>]+pilates-hours\.js[^>]*><\/script>/g,'');
+  html=html.replace('</body>','<script src="./gym-women-machines.js?v=10"></script><script src="./pilates-extra.js?v=10"></script><script src="./pilates-hours.js?v=10"></script></body>');
   return new Response(html,{status:resp.status,statusText:resp.statusText,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-cache, no-store, must-revalidate'}});
 }
 self.addEventListener('fetch',e=>{
@@ -21,14 +24,18 @@ self.addEventListener('fetch',e=>{
     e.respondWith((async()=>{
       try{
         const net=await fetch(e.request,{cache:'no-store'});
-        if(net.ok){const raw=net.clone();caches.open(CACHE).then(c=>c.put('./index.html',raw));return withPilatesScripts(net)}
+        if(net.ok){const raw=net.clone();caches.open(CACHE).then(c=>c.put('./index.html',raw));return withScripts(net)}
       }catch(_){ }
-      return withPilatesScripts(await caches.match('./index.html'));
+      return withScripts(await caches.match('./index.html'));
     })());
     return;
   }
-  if(u.pathname.endsWith('/pilates-extra.js')||u.pathname.endsWith('/pilates-hours.js')){
-    e.respondWith(fetch(e.request,{cache:'no-store'}).then(resp=>resp).catch(()=>caches.match(u.pathname.endsWith('/pilates-extra.js')?'./pilates-extra.js':'./pilates-hours.js')));
+  if(u.pathname.endsWith('/gym-women-machines.js')||u.pathname.endsWith('/pilates-extra.js')||u.pathname.endsWith('/pilates-hours.js')){
+    e.respondWith(fetch(e.request,{cache:'no-store'}).then(resp=>resp).catch(()=>{
+      if(u.pathname.endsWith('/gym-women-machines.js')) return caches.match('./gym-women-machines.js');
+      if(u.pathname.endsWith('/pilates-extra.js')) return caches.match('./pilates-extra.js');
+      return caches.match('./pilates-hours.js');
+    }));
     return;
   }
   e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(resp=>{const copy=resp.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));return resp;})));
