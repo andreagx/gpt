@@ -1,5 +1,5 @@
-const CACHE='scheda-palestra-github-v11';
-const ASSETS=['./','./index.html','./manifest.webmanifest','./icon.svg','./sprite.webp','./gym-women-machines.js','./pilates-extra.js','./pilates-hours.js'];
+const CACHE='scheda-palestra-github-v12';
+const ASSETS=['./','./index.html','./manifest.webmanifest','./icon.svg','./sprite.webp','./gym-women-machines.js','./pilates-extra.js','./pilates-hours.js','./reset-all.js'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil((async()=>{
   await caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))));
@@ -13,8 +13,9 @@ async function withScripts(resp){
   html=html
     .replace(/<script[^>]+gym-women-machines\.js[^>]*><\/script>/g,'')
     .replace(/<script[^>]+pilates-extra\.js[^>]*><\/script>/g,'')
-    .replace(/<script[^>]+pilates-hours\.js[^>]*><\/script>/g,'');
-  html=html.replace('</body>','<script src="./gym-women-machines.js?v=11"></script><script src="./pilates-extra.js?v=11"></script><script src="./pilates-hours.js?v=11"></script></body>');
+    .replace(/<script[^>]+pilates-hours\.js[^>]*><\/script>/g,'')
+    .replace(/<script[^>]+reset-all\.js[^>]*><\/script>/g,'');
+  html=html.replace('</body>','<script src="./gym-women-machines.js?v=12"></script><script src="./pilates-extra.js?v=12"></script><script src="./pilates-hours.js?v=12"></script><script src="./reset-all.js?v=12"></script></body>');
   return new Response(html,{status:resp.status,statusText:resp.statusText,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-cache, no-store, must-revalidate'}});
 }
 self.addEventListener('fetch',e=>{
@@ -30,11 +31,12 @@ self.addEventListener('fetch',e=>{
     })());
     return;
   }
-  if(u.pathname.endsWith('/gym-women-machines.js')||u.pathname.endsWith('/pilates-extra.js')||u.pathname.endsWith('/pilates-hours.js')){
+  if(u.pathname.endsWith('/gym-women-machines.js')||u.pathname.endsWith('/pilates-extra.js')||u.pathname.endsWith('/pilates-hours.js')||u.pathname.endsWith('/reset-all.js')){
     e.respondWith(fetch(e.request,{cache:'no-store'}).then(resp=>resp).catch(()=>{
       if(u.pathname.endsWith('/gym-women-machines.js')) return caches.match('./gym-women-machines.js');
       if(u.pathname.endsWith('/pilates-extra.js')) return caches.match('./pilates-extra.js');
-      return caches.match('./pilates-hours.js');
+      if(u.pathname.endsWith('/pilates-hours.js')) return caches.match('./pilates-hours.js');
+      return caches.match('./reset-all.js');
     }));
     return;
   }
