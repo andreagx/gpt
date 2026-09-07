@@ -1,4 +1,4 @@
-const CACHE='scheda-palestra-github-v12';
+const CACHE='scheda-palestra-github-v13';
 const ASSETS=['./','./index.html','./manifest.webmanifest','./icon.svg','./sprite.webp','./gym-women-machines.js','./pilates-extra.js','./pilates-hours.js','./reset-all.js'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil((async()=>{
@@ -15,7 +15,7 @@ async function withScripts(resp){
     .replace(/<script[^>]+pilates-extra\.js[^>]*><\/script>/g,'')
     .replace(/<script[^>]+pilates-hours\.js[^>]*><\/script>/g,'')
     .replace(/<script[^>]+reset-all\.js[^>]*><\/script>/g,'');
-  html=html.replace('</body>','<script src="./gym-women-machines.js?v=12"></script><script src="./pilates-extra.js?v=12"></script><script src="./pilates-hours.js?v=12"></script><script src="./reset-all.js?v=12"></script></body>');
+  html=html.replace('</body>','<script src="./gym-women-machines.js?v=13"></script><script src="./pilates-extra.js?v=13"></script><script src="./pilates-hours.js?v=13"></script><script src="./reset-all.js?v=13"></script></body>');
   return new Response(html,{status:resp.status,statusText:resp.statusText,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-cache, no-store, must-revalidate'}});
 }
 self.addEventListener('fetch',e=>{
