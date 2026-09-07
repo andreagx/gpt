@@ -5,32 +5,35 @@
   function install(){
     const nav=document.querySelector('nav');
     const header=document.querySelector('header');
-    if(!nav||!header) return;
+    const intro=document.querySelector('.intro');
+    const schedule=intro?.querySelector('.schedule');
+    if(!nav||!header||!intro||!schedule) return;
 
     if(!document.getElementById('reset-all-style')){
       const s=document.createElement('style');
       s.id='reset-all-style';
       s.textContent=`
         [data-reset],[data-machine-reset],[data-pxreset]{display:none!important}
-        #${ROW}{display:flex;justify-content:flex-end;margin:8px 0 7px}
-        #${ID}{border:1px solid #fecaca;background:#7f1d1d;color:#fff;border-radius:10px;padding:8px 12px;font:inherit;font-size:12px;font-weight:900;white-space:nowrap;cursor:pointer}
+        .intro .schedule{display:flex!important;visibility:visible!important;opacity:1!important}
+        #${ROW}{display:flex;justify-content:flex-end;margin:12px 0 0}
+        #${ID}{border:1px solid #fecaca;background:#7f1d1d;color:#fff;border-radius:10px;padding:9px 13px;font:inherit;font-size:12px;font-weight:900;white-space:nowrap;cursor:pointer}
       `;
       document.head.appendChild(s);
     }
 
-    // Togli la descrizione sotto "Programma settimanale" e lascia solo titolo + giorni.
-    const introText=document.querySelector('.intro > p');
+    // Mantieni il programma settimanale completo; rimuovi solo la descrizione testuale.
+    const introText=intro.querySelector(':scope > p');
     if(introText) introText.remove();
 
-    if(!document.getElementById(ROW)){
-      const row=document.createElement('div');
+    let row=document.getElementById(ROW);
+    if(!row){
+      row=document.createElement('div');
       row.id=ROW;
       const btn=document.createElement('button');
       btn.id=ID;
       btn.type='button';
       btn.textContent='Azzera tutto';
       row.appendChild(btn);
-      nav.parentNode.insertBefore(row,nav);
 
       btn.addEventListener('click',()=>{
         if(!confirm('Azzero tutti i dati degli allenamenti di questa scheda: spunte, pesi, ripetizioni e note? Gli orari Pilates modificabili restano invariati.')) return;
@@ -53,6 +56,11 @@
         btn.textContent='Azzerato ✓';
         setTimeout(()=>btn.textContent='Azzera tutto',1400);
       });
+    }
+
+    // Il pulsante globale va subito dopo la barra Lun/Mar/Mer/... .
+    if(row.parentElement!==intro || row.previousElementSibling!==schedule){
+      schedule.insertAdjacentElement('afterend',row);
     }
 
     // Navigazione robusta su iPhone/PWA anche per le schede Pilates aggiunte dinamicamente.
