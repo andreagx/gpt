@@ -1,5 +1,5 @@
-const CACHE='scheda-palestra-github-v15';
-const ASSETS=['./','./index.html','./manifest.webmanifest','./icon.svg','./sprite.webp','./gym-women-machines.js','./pilates-extra.js','./pilates-hours.js','./reset-all.js','./theme-picker.js'];
+const CACHE='scheda-palestra-github-v16';
+const ASSETS=['./','./index.html','./manifest.webmanifest','./icon.svg','./gym-women-machines.js','./pilates-extra.js','./pilates-hours.js','./reset-all.js','./theme-picker.js'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil((async()=>{
   await caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))));
@@ -7,18 +7,6 @@ self.addEventListener('activate',e=>e.waitUntil((async()=>{
   const clients=await self.clients.matchAll({type:'window',includeUncontrolled:true});
   await Promise.all(clients.map(c=>c.navigate(c.url).catch(()=>{})));
 })()));
-async function withScripts(resp){
-  if(!resp) return resp;
-  let html=await resp.text();
-  html=html
-    .replace(/<script[^>]+gym-women-machines\.js[^>]*><\/script>/g,'')
-    .replace(/<script[^>]+pilates-extra\.js[^>]*><\/script>/g,'')
-    .replace(/<script[^>]+pilates-hours\.js[^>]*><\/script>/g,'')
-    .replace(/<script[^>]+reset-all\.js[^>]*><\/script>/g,'')
-    .replace(/<script[^>]+theme-picker\.js[^>]*><\/script>/g,'');
-  html=html.replace('</body>','<script src="./theme-picker.js?v=15"></script><script src="./gym-women-machines.js?v=15"></script><script src="./pilates-extra.js?v=15"></script><script src="./pilates-hours.js?v=15"></script><script src="./reset-all.js?v=15"></script></body>');
-  return new Response(html,{status:resp.status,statusText:resp.statusText,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-cache, no-store, must-revalidate'}});
-}
 self.addEventListener('fetch',e=>{
   if(e.request.method!=='GET') return;
   const u=new URL(e.request.url);
@@ -26,21 +14,16 @@ self.addEventListener('fetch',e=>{
     e.respondWith((async()=>{
       try{
         const net=await fetch(e.request,{cache:'no-store'});
-        if(net.ok){const raw=net.clone();caches.open(CACHE).then(c=>c.put('./index.html',raw));return withScripts(net)}
+        if(net.ok){caches.open(CACHE).then(c=>c.put('./index.html',net.clone()));return net;}
       }catch(_){ }
-      return withScripts(await caches.match('./index.html'));
+      return (await caches.match('./index.html'))||Response.error();
     })());
     return;
   }
-  if(u.pathname.endsWith('/gym-women-machines.js')||u.pathname.endsWith('/pilates-extra.js')||u.pathname.endsWith('/pilates-hours.js')||u.pathname.endsWith('/reset-all.js')||u.pathname.endsWith('/theme-picker.js')){
-    e.respondWith(fetch(e.request,{cache:'no-store'}).then(resp=>resp).catch(()=>{
-      if(u.pathname.endsWith('/gym-women-machines.js')) return caches.match('./gym-women-machines.js');
-      if(u.pathname.endsWith('/pilates-extra.js')) return caches.match('./pilates-extra.js');
-      if(u.pathname.endsWith('/pilates-hours.js')) return caches.match('./pilates-hours.js');
-      if(u.pathname.endsWith('/theme-picker.js')) return caches.match('./theme-picker.js');
-      return caches.match('./reset-all.js');
-    }));
-    return;
+  if(u.origin===location.origin){
+    e.respondWith(fetch(e.request,{cache:'no-store'}).then(resp=>{
+      if(resp&&resp.ok)caches.open(CACHE).then(c=>c.put(e.request,resp.clone()));
+      return resp;
+    }).catch(()=>caches.match(e.request).then(r=>r||Response.error())));
   }
-  e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).then(resp=>{const copy=resp.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));return resp;})));
 });
