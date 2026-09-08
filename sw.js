@@ -1,5 +1,5 @@
-const CACHE='scheda-palestra-github-v14';
-const ASSETS=['./','./index.html','./manifest.webmanifest','./icon.svg','./sprite.webp','./gym-women-machines.js','./pilates-extra.js','./pilates-hours.js','./reset-all.js'];
+const CACHE='scheda-palestra-github-v15';
+const ASSETS=['./','./index.html','./manifest.webmanifest','./icon.svg','./sprite.webp','./gym-women-machines.js','./pilates-extra.js','./pilates-hours.js','./reset-all.js','./theme-picker.js'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil((async()=>{
   await caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))));
@@ -14,8 +14,9 @@ async function withScripts(resp){
     .replace(/<script[^>]+gym-women-machines\.js[^>]*><\/script>/g,'')
     .replace(/<script[^>]+pilates-extra\.js[^>]*><\/script>/g,'')
     .replace(/<script[^>]+pilates-hours\.js[^>]*><\/script>/g,'')
-    .replace(/<script[^>]+reset-all\.js[^>]*><\/script>/g,'');
-  html=html.replace('</body>','<script src="./gym-women-machines.js?v=14"></script><script src="./pilates-extra.js?v=14"></script><script src="./pilates-hours.js?v=14"></script><script src="./reset-all.js?v=14"></script></body>');
+    .replace(/<script[^>]+reset-all\.js[^>]*><\/script>/g,'')
+    .replace(/<script[^>]+theme-picker\.js[^>]*><\/script>/g,'');
+  html=html.replace('</body>','<script src="./theme-picker.js?v=15"></script><script src="./gym-women-machines.js?v=15"></script><script src="./pilates-extra.js?v=15"></script><script src="./pilates-hours.js?v=15"></script><script src="./reset-all.js?v=15"></script></body>');
   return new Response(html,{status:resp.status,statusText:resp.statusText,headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-cache, no-store, must-revalidate'}});
 }
 self.addEventListener('fetch',e=>{
@@ -31,11 +32,12 @@ self.addEventListener('fetch',e=>{
     })());
     return;
   }
-  if(u.pathname.endsWith('/gym-women-machines.js')||u.pathname.endsWith('/pilates-extra.js')||u.pathname.endsWith('/pilates-hours.js')||u.pathname.endsWith('/reset-all.js')){
+  if(u.pathname.endsWith('/gym-women-machines.js')||u.pathname.endsWith('/pilates-extra.js')||u.pathname.endsWith('/pilates-hours.js')||u.pathname.endsWith('/reset-all.js')||u.pathname.endsWith('/theme-picker.js')){
     e.respondWith(fetch(e.request,{cache:'no-store'}).then(resp=>resp).catch(()=>{
       if(u.pathname.endsWith('/gym-women-machines.js')) return caches.match('./gym-women-machines.js');
       if(u.pathname.endsWith('/pilates-extra.js')) return caches.match('./pilates-extra.js');
       if(u.pathname.endsWith('/pilates-hours.js')) return caches.match('./pilates-hours.js');
+      if(u.pathname.endsWith('/theme-picker.js')) return caches.match('./theme-picker.js');
       return caches.match('./reset-all.js');
     }));
     return;
