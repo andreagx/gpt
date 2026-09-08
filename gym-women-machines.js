@@ -1,6 +1,72 @@
 (()=>{
   const Y=q=>'https://www.youtube.com/results?search_query='+encodeURIComponent(q);
-  const PREFIX='gym-women-machines-v3-';
+  const PREFIX='gym-women-machines-v4-';
+
+  const PHOTOS={
+    chestpress:[
+      'https://westwood.ie/img/asset/aW1hZ2VzL2NsdWJzL2R1bi1sYW9naGFpcmUtZ3ltLWNwLmpwZWc/dun-laoghaire-gym-cp.jpeg?h=4200&s=e5fb6da64680c4db435e40f465b63fc8&w=2800',
+      'https://www.aprilyoungfitness.com/uploads/1/2/1/3/121349996/machine-chest-press_orig.jpg'
+    ],
+    chestpress2:[
+      'https://westwood.ie/img/asset/aW1hZ2VzL2NsdWJzL2R1bi1sYW9naGFpcmUtZ3ltLWNwLmpwZWc/dun-laoghaire-gym-cp.jpeg?h=4200&s=e5fb6da64680c4db435e40f465b63fc8&w=2800',
+      'https://static1.squarespace.com/static/5c641b18da50d324fa8e85f0/t/5d8f6bd4ec26e557b449f188/1571552239079/Screen%2BShot%2B2019-09-28%2Bat%2B15.18.30.png?format=1500w'
+    ],
+    pecdeck:[
+      'https://img.championat.com/hksHWAAOXnfRfYUM8NMgqViOkRNQapvBV5x9ZndKLBk/p(w:1350/h:900)/news/big/l/w/svedenie-ruk-v-trenazhyore-dlya-prokachki-grudnyh-myshc_1700214736335708174.jpg',
+      'https://www.fabrykasily.pl/upload/gallery/2019/03/id_21258_1552923825_1260x840.jpg'
+    ],
+    legpress:[
+      'https://images.ctfassets.net/sby3b3ghdq6f/3crNdIx1z8SzXMIU4p86Ze/bf3136f8988f5f87aa9c6a2d3896782b/Seated_Leg_Press.webp',
+      'https://www.projectinvictus.it/wp-content/uploads/2021/05/2102_AA_PROJECT21_01_641-scaled.jpg'
+    ],
+    legcurl:[
+      'https://contents.mediadecathlon.com/s1197573/k%242f7d2a7af245a0a1e87c27ace25446ed/1800x0/600pt400/1200xcr800/kobieta-cwiczaca-uginanie-nog-na-maszynie-siedzac.jpg?format=auto',
+      'https://cdn.corenutrition.fi/images/artiklar/sittande%20l%C3%A5rcurl-4-892.jpg'
+    ],
+    abductor:[
+      'https://lafitness.files.wordpress.com/2014/05/abductor-machine-prop-up-and-lean-forward-progression-exercise-4.jpg?w=1576',
+      'https://images.ctfassets.net/sby3b3ghdq6f/69gqEECa8zMnaSlLWScKsI/87e56e5e76d4f2e80f712c9189465c5a/Abductor.webp'
+    ],
+    reversecrunch:[
+      'https://assets.bodyspec.com/master/static/dac437e15e29666740c2c5d6f7abc738/b4111/woman_doing_reverse_crunch_on_yoga_mat..jpg',
+      'https://www.my-personaltrainer.it/2023/06/06/reverse-crunch-orig.jpeg'
+    ],
+    plank:['https://bi.im-g.pl/im/24/0a/1a/z27305508IER%2CPlank-zrobimy-w-kilku-roznych-wersjach.jpg'],
+    lat:[
+      'https://static.showit.co/400/Q6P8x8DKqu1DNp-wm6Fzng/142685/541c0dcf-5308-497b-8e17-8cc25ab77a23_1_201_a.jpg',
+      'https://www.factoryfast.com.au/cdn/shop/files/cc7fe61a175eeb951f11a7d526732ae1_1400x.jpg?v=1762941359'
+    ],
+    row:[
+      'https://www.titaniumstrength.it/media/catalog/product/cache/091edd3dd24f94ee9e594de8bb6fb808/d/s/dsc08645-min-min.jpg',
+      'https://cdn.shopify.com/s/files/1/0754/7279/8002/files/BlogUpperBack-9.webp?v=1736317611'
+    ],
+    shoulderpress:[
+      'https://cdn.shopify.com/s/files/1/0850/4147/9946/files/336_Shoulder_Front_Press_Framsida_Axelpress.jpg?v=1768383528&width=5000',
+      'https://profi-fitness-shop.de/cdn/shop/products/schulterpresse-active-gym-usa-102420_1445x.jpg?v=1665429891'
+    ],
+    deadbug:[
+      'https://cdn.mos.cms.futurecdn.net/5xT5c5rK7iQSQc73RKZysb-1827-80.jpg',
+      'https://www.racmn.com/wp-content/uploads/2025/09/wp-DeadBug.jpeg'
+    ],
+    sideplank:['https://hips.hearstapps.com/hmg-prod/images/plank-forearm-side-plank-746-1653516947.jpg?crop=0.694xw:0.694xh;0.182xw,0.260xh&resize=980:*'],
+    birddog:[
+      'https://fitness-garage-blog.s3.eu-central-1.amazonaws.com/s3fs-public/inline-images/Bird%20dog%202.gif',
+      'https://d1rig8ldkblbsy.cloudfront.net/app/uploads/2020/05/05122353/bird-dog.jpg'
+    ],
+    legextension:[
+      'https://saragepstein.wordpress.com/wp-content/uploads/2015/02/img_4724-2.jpg',
+      'https://img.magnific.com/free-photo/pretty-woman-working-her-quads-machine-press-gym_231208-3396.jpg?q=80&semt=ais_hybrid&w=740'
+    ],
+    adductor:[
+      'https://axgym.ru/sites/default/files/news5-1.jpg',
+      'https://static.tildacdn.com/tild6232-6433-4234-a462-316262303637/nogi-4.jpg'
+    ],
+    kickback:[
+      'https://admin.wellandgood.com/wp-content/uploads/sites/3/2024/09/Cable-glute-kickback.jpg?w=500',
+      'https://media.bormm.com/wp-content/uploads/2024/09/cable-machine-glute-exercises.jpg'
+    ],
+    heeltaps:['https://i.pinimg.com/originals/7d/0c/df/7d0cdfdaef92632528d3802859f4c72f.jpg']
+  };
 
   const PLANS={
     A:{title:'Petto + Glutei + Core',subtitle:'Allenamento A · guidato e facile',items:[
@@ -9,8 +75,8 @@
       ['Leg press guidata','Matrix Leg Press / pressa guidata','3 × 10–15','60–75 s',Y('woman leg press proper form tutorial'),'MACCHINE','legpress'],
       ['Leg curl guidato','Macchina leg curl seduto','3 × 12–15','60 s',Y('woman seated leg curl machine proper form tutorial'),'MACCHINE','legcurl'],
       ['Abductor machine','Macchina abduttori','3 × 15–20','45–60 s',Y('woman hip abductor machine proper form tutorial'),'MACCHINE','abductor'],
-      ['Pallof press','Cavo regolabile','3 × 12 / lato','30–45 s',Y('woman Pallof press proper form tutorial'),'CORE','pallof'],
       ['Reverse crunch','Tappetino','3 × 12–15','30–45 s',Y('woman reverse crunch proper form tutorial'),'CORE','reversecrunch'],
+      ['Dead bug','Tappetino','3 × 10 / lato','30 s',Y('woman dead bug proper form tutorial'),'CORE','deadbug'],
       ['Plank','Tappetino','3 × 35–50 s','45 s',Y('woman forearm plank proper form tutorial'),'CORE','plank']
     ]},
     B:{title:'Upper body + Petto + Core',subtitle:'Allenamento B · postura e parte alta',items:[
@@ -18,10 +84,10 @@
       ['Seated row al pulley','Pulley basso / row guidato','3 × 10–12','60–75 s',Y('woman seated cable row proper form tutorial'),'MACCHINE','row'],
       ['Shoulder press guidata','Macchina press spalle','3 × 10–12','60 s',Y('woman machine shoulder press proper form tutorial'),'MACCHINE','shoulderpress'],
       ['Chest press convergente leggera','Macchina chest press · carico moderato','3 × 12–15','60 s',Y('woman converging chest press machine proper form tutorial'),'MACCHINE','chestpress2'],
-      ['Face pull','Cavo alto + corda','3 × 12–15','45 s',Y('woman face pull proper form tutorial'),'CAVI','facepull'],
-      ['Dead bug','Tappetino','3 × 10 / lato','30 s',Y('woman dead bug proper form tutorial'),'CORE','deadbug'],
+      ['Dead bug con estensione alternata','Tappetino','3 × 8–10 / lato','30 s',Y('woman dead bug alternating extension tutorial'),'CORE','deadbug'],
       ['Side plank','Tappetino','3 × 25–40 s / lato','30 s',Y('woman side plank proper form tutorial'),'CORE','sideplank'],
-      ['Bird dog','Tappetino','3 × 10 / lato','30 s',Y('woman bird dog proper form tutorial'),'CORE','birddog']
+      ['Bird dog','Tappetino','3 × 10 / lato','30 s',Y('woman bird dog proper form tutorial'),'CORE','birddog'],
+      ['Heel taps','Tappetino','3 × 16–20 totali','30 s',Y('woman heel taps abs proper form tutorial'),'CORE','heeltaps']
     ]},
     C:{title:'Gambe + Glutei + Petto + Core',subtitle:'Allenamento C · semplice e controllato',items:[
       ['Leg extension guidata','Macchina leg extension','3 × 12–15','60 s',Y('woman leg extension machine proper form tutorial'),'MACCHINE','legextension'],
@@ -29,7 +95,7 @@
       ['Adductor machine','Macchina adduttori','3 × 12–15','45–60 s',Y('woman hip adductor machine proper form tutorial'),'MACCHINE','adductor'],
       ['Glute kickback al cavo','Cavo basso + cavigliera','3 × 12–15 / gamba','45 s',Y('woman cable glute kickback proper form tutorial'),'CAVI','kickback'],
       ['Chest press guidata','Macchina chest press Matrix','3 × 10–12','60–75 s',Y('woman machine chest press proper form tutorial'),'MACCHINE','chestpress'],
-      ['Pallof press','Cavo regolabile','3 × 10–12 / lato','30–45 s',Y('woman Pallof press proper form tutorial'),'CORE','pallof'],
+      ['Reverse crunch','Tappetino','3 × 12–15','30–45 s',Y('woman reverse crunch proper form tutorial'),'CORE','reversecrunch'],
       ['Heel taps','Tappetino','3 × 16–20 totali','30 s',Y('woman heel taps abs proper form tutorial'),'CORE','heeltaps'],
       ['Plank con appoggio avambracci','Tappetino','3 × 35–50 s','45 s',Y('woman forearm plank proper form tutorial'),'CORE','plank']
     ]}
@@ -42,72 +108,24 @@
       .group-label{margin:12px 0 7px;padding:7px 9px;border-radius:9px;background:#eef2f7;color:#344054;font-size:10px;font-weight:900;letter-spacing:.07em}
       .photo-note{margin:9px 0 12px;padding:10px 11px;border-radius:11px;background:#fff0f6;border:1px solid #f9a8d4;color:#9d174d;font-size:11px;line-height:1.45}
       .phase-pair{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 10px 2px}
-      .phase{margin:0;border:1px solid #e4e7ec;border-radius:12px;overflow:hidden;background:#fff;min-width:0}
-      .phase svg{display:block;width:100%;aspect-ratio:1/1;background:#fff}
-      .phase figcaption{padding:6px;text-align:center;font-size:10px;font-weight:900;letter-spacing:.09em;background:#f8fafc;color:#475467;border-top:1px solid #eef1f4}
+      .phase-pair.single{grid-template-columns:1fr}
+      .phase{margin:0;border:1px solid #e4e7ec;border-radius:12px;overflow:hidden;background:#f8fafc;min-width:0;position:relative}
+      .phase img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#f8fafc}
+      .phase figcaption{padding:7px;text-align:center;font-size:10px;font-weight:900;letter-spacing:.09em;background:#f8fafc;color:#475467;border-top:1px solid #eef1f4}
+      .phase.missing{min-height:170px;display:flex;flex-direction:column;justify-content:flex-end}
+      .phase.missing:before{content:'Foto non disponibile';margin:auto;padding:18px;color:#98a2b3;font-size:11px;text-align:center}
+      .phase.missing img{display:none}
       .easy-badge{display:inline-block;margin-top:6px;background:#ecfdf3;color:#067647;border:1px solid #abefc6;border-radius:999px;padding:3px 7px;font-size:10px;font-weight:800}
     `;
     document.head.appendChild(s);
   }
 
-  function femaleSvg(kind,phase,name){
-    const end=phase==='end';
-    const accent='var(--app-accent,#8b3fa8)';
-    const machine={
-      chestpress:`<rect x="15" y="70" width="32" height="72" rx="8" fill="#d0d5dd"/><rect x="44" y="82" width="12" height="60" rx="5" fill="#98a2b3"/>`,
-      chestpress2:`<rect x="15" y="70" width="32" height="72" rx="8" fill="#d0d5dd"/><rect x="44" y="82" width="12" height="60" rx="5" fill="#98a2b3"/>`,
-      pecdeck:`<rect x="18" y="72" width="30" height="70" rx="8" fill="#d0d5dd"/><path d="M45 83 L75 63 M45 100 L76 120" stroke="#98a2b3" stroke-width="6"/>`,
-      legpress:`<path d="M24 138 L72 82 L121 82 L78 146 Z" fill="#d0d5dd"/><rect x="115" y="54" width="16" height="82" rx="5" fill="#98a2b3" transform="rotate(18 123 95)"/>`,
-      legcurl:`<rect x="16" y="95" width="66" height="18" rx="7" fill="#d0d5dd"/><rect x="68" y="107" width="14" height="40" rx="6" fill="#98a2b3"/>`,
-      legextension:`<rect x="16" y="90" width="66" height="20" rx="7" fill="#d0d5dd"/><rect x="70" y="106" width="15" height="36" rx="6" fill="#98a2b3"/>`,
-      abductor:`<rect x="14" y="90" width="48" height="54" rx="10" fill="#d0d5dd"/><rect x="64" y="96" width="10" height="22" rx="4" fill="#98a2b3"/><rect x="64" y="124" width="10" height="22" rx="4" fill="#98a2b3"/>`,
-      adductor:`<rect x="14" y="90" width="48" height="54" rx="10" fill="#d0d5dd"/><rect x="64" y="96" width="10" height="22" rx="4" fill="#98a2b3"/><rect x="64" y="124" width="10" height="22" rx="4" fill="#98a2b3"/>`,
-      lat:`<rect x="20" y="25" width="8" height="125" rx="3" fill="#98a2b3"/><path d="M28 35 H122" stroke="#667085" stroke-width="6"/><path d="M112 35 V72" stroke="#667085" stroke-width="4"/>`,
-      row:`<rect x="20" y="112" width="75" height="16" rx="6" fill="#d0d5dd"/><path d="M108 70 V135" stroke="#98a2b3" stroke-width="6"/>`,
-      shoulderpress:`<rect x="16" y="88" width="42" height="56" rx="8" fill="#d0d5dd"/><path d="M58 65 V110 M58 65 H84" stroke="#98a2b3" stroke-width="6"/>`,
-      facepull:`<path d="M128 30 V145" stroke="#98a2b3" stroke-width="6"/><path d="M126 60 H96" stroke="#667085" stroke-width="3"/>`,
-      pallof:`<path d="M128 30 V145" stroke="#98a2b3" stroke-width="6"/><path d="M126 82 H95" stroke="#667085" stroke-width="3"/>`,
-      kickback:`<path d="M128 30 V145" stroke="#98a2b3" stroke-width="6"/><path d="M126 122 H94" stroke="#667085" stroke-width="3"/>`
-    }[kind]||'';
-
-    let cx=84,cy=58,torsoX=75,torsoY=75;
-    let arm1='M78 82 L59 103',arm2='M91 82 L108 104',leg1='M78 115 L65 143',leg2='M91 115 L104 143';
-    if(['chestpress','chestpress2','pecdeck'].includes(kind)){arm1=end?'M78 82 L48 82':'M78 82 L58 101';arm2=end?'M91 82 L121 82':'M91 82 L112 101';}
-    if(kind==='legpress'){cy=70;torsoX=60;torsoY=88;arm1='M65 95 L45 115';arm2='M78 95 L94 111';leg1=end?'M70 118 L112 91':'M70 118 L91 100';leg2=end?'M82 118 L121 94':'M82 118 L101 103';}
-    if(['legcurl','legextension','abductor','adductor'].includes(kind)){cx=59;cy=58;torsoX=50;torsoY=75;arm1='M54 83 L38 105';arm2='M67 83 L78 104';leg1=(kind==='legextension'&&end)?'M54 116 L87 116':'M54 116 L52 144';leg2=(kind==='abductor'&&end)?'M66 116 L95 140':(kind==='adductor'&&end)?'M66 116 L78 140':'M66 116 L70 144';}
-    if(kind==='lat'){arm1=end?'M78 82 L61 70':'M78 82 L56 43';arm2=end?'M91 82 L108 70':'M91 82 L114 43';}
-    if(kind==='row'){arm1=end?'M78 82 L61 84':'M78 82 L49 84';arm2=end?'M91 82 L108 84':'M91 82 L120 84';}
-    if(kind==='shoulderpress'){arm1=end?'M78 82 L69 46':'M78 82 L61 67';arm2=end?'M91 82 L100 46':'M91 82 L108 67';}
-    if(kind==='facepull'){arm1=end?'M78 82 L96 71':'M78 82 L104 82';arm2=end?'M91 82 L101 71':'M91 82 L116 82';}
-    if(kind==='pallof'){arm1=end?'M78 82 L106 82':'M78 82 L92 82';arm2=end?'M91 82 L106 82':'M91 82 L94 82';}
-    if(kind==='kickback'){leg1=end?'M78 115 L48 134':'M78 115 L70 143';leg2='M91 115 L98 143';}
-    if(kind==='reversecrunch'){cx=80;cy=88;torsoX=70;torsoY=101;arm1='M74 108 L52 121';arm2='M87 108 L108 121';leg1=end?'M76 129 L71 104':'M76 129 L62 145';leg2=end?'M88 129 L93 104':'M88 129 L103 145';}
-    if(kind==='plank'){cx=45;cy=93;torsoX=57;torsoY=103;arm1='M60 110 L45 132';arm2='M70 110 L58 132';leg1='M80 116 L118 132';leg2='M88 116 L128 132';}
-    if(kind==='sideplank'){cx=48;cy=87;torsoX=61;torsoY=101;arm1='M64 108 L47 132';arm2=end?'M70 104 L78 65':'M70 104 L82 86';leg1='M79 116 L119 132';leg2='M84 120 L125 137';}
-    if(kind==='deadbug'){cx=80;cy=91;torsoX=71;torsoY=104;arm1=end?'M75 108 L52 82':'M75 108 L64 88';arm2='M87 108 L102 88';leg1=end?'M77 129 L55 145':'M77 129 L68 145';leg2='M89 129 L102 145';}
-    if(kind==='birddog'){cx=55;cy=91;torsoX=66;torsoY=104;arm1=end?'M68 108 L38 96':'M68 108 L50 128';arm2='M80 108 L66 130';leg1='M83 120 L76 143';leg2=end?'M91 120 L126 108':'M91 120 L103 143';}
-    if(kind==='heeltaps'){cx=79;cy=86;torsoX=70;torsoY=100;arm1=end?'M74 108 L50 126':'M74 108 L59 126';arm2=end?'M87 108 L111 126':'M87 108 L102 126';leg1='M76 129 L56 145';leg2='M89 129 L109 145';}
-
-    return `<svg viewBox="0 0 150 160" role="img" aria-label="${name} ${phase==='end'?'posizione finale':'posizione iniziale'} - donna">
-      <rect width="150" height="160" fill="#fff"/>
-      ${machine}
-      <circle cx="${cx}" cy="${cy}" r="11" fill="#f2c5a0"/>
-      <circle cx="${cx+9}" cy="${cy-4}" r="4" fill="#4b2e2a"/>
-      <path d="M${cx-10} ${cy-6} Q${cx} ${cy-19} ${cx+10} ${cy-7}" fill="#4b2e2a"/>
-      <rect x="${torsoX}" y="${torsoY}" width="20" height="41" rx="9" fill="${accent}"/>
-      <path d="${arm1}" stroke="#f2c5a0" stroke-width="7" stroke-linecap="round" fill="none"/>
-      <path d="${arm2}" stroke="#f2c5a0" stroke-width="7" stroke-linecap="round" fill="none"/>
-      <path d="${leg1}" stroke="#263244" stroke-width="8" stroke-linecap="round" fill="none"/>
-      <path d="${leg2}" stroke="#263244" stroke-width="8" stroke-linecap="round" fill="none"/>
-      <text x="75" y="153" text-anchor="middle" font-size="8" font-family="system-ui" fill="#667085">ILLUSTRAZIONE DONNA</text>
-    </svg>`;
-  }
-
   function phases(kind,name){
-    return `<div class="phase-pair">
-      <figure class="phase">${femaleSvg(kind,'start',name)}<figcaption>INIZIO</figcaption></figure>
-      <figure class="phase">${femaleSvg(kind,'end',name)}<figcaption>FINE</figcaption></figure>
-    </div>`;
+    const p=PHOTOS[kind]||[];
+    if(p.length===1){
+      return `<div class="phase-pair single"><figure class="phase"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="${p[0]}" alt="${name} - donna"><figcaption>POSIZIONE</figcaption></figure></div>`;
+    }
+    return `<div class="phase-pair"><figure class="phase"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="${p[0]||''}" alt="${name} - posizione iniziale - donna"><figcaption>INIZIO</figcaption></figure><figure class="phase"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="${p[1]||p[0]||''}" alt="${name} - posizione finale - donna"><figcaption>FINE</figcaption></figure></div>`;
   }
 
   function card(day,i,e){
@@ -118,8 +136,8 @@
   function renderDay(day){
     const p=PLANS[day],sec=document.querySelector('#w-'+day);if(!sec)return;
     const head=sec.querySelector('.head');
-    if(head)head.innerHTML=`<div><small>${p.subtitle}</small><h2>${p.title}</h2></div><button type="button" data-machine-reset="${day}">Azzera</button>`;
-    let html='<div class="photo-note"><b>Immagini INIZIO / FINE:</b> da questa versione le visualizzazioni sono riferite esclusivamente a una figura femminile. Gli esercizi sono stati riprogettati per ridurre i doppioni e privilegiare macchine/cavi semplici presenti in sala.</div>',last='';
+    if(head)head.innerHTML=`<div><small>${p.subtitle}</small><h2>${p.title}</h2></div>`;
+    let html='<div class="photo-note"><b>Foto donna INIZIO / FINE:</b> riferimento visivo del movimento. La macchina può avere un design diverso da quella presente in sala.</div>',last='';
     p.items.forEach((e,i)=>{if(e[5]!==last){last=e[5];html+=`<div class="group-label">${last}</div>`}html+=card(day,i,e)});
     const list=sec.querySelector('.list');if(list)list.innerHTML=html;
   }
@@ -127,8 +145,7 @@
   function updateSchedule(){
     const sched=document.querySelector('.schedule');
     if(sched){
-      const byDay={};
-      [...sched.children].forEach(c=>{const b=c.querySelector('b');if(b)byDay[b.textContent.trim().toLowerCase()]=c});
+      const byDay={};[...sched.children].forEach(c=>{const b=c.querySelector('b');if(b)byDay[b.textContent.trim().toLowerCase()]=c});
       if(byDay.lun)byDay.lun.innerHTML='<b>Lun</b><strong>A</strong><span>Petto + Glutei + Core</span>';
       if(byDay.mer)byDay.mer.innerHTML='<b>Mer</b><strong>B</strong><span>Upper body + Petto + Core</span>';
       if(byDay.gio)byDay.gio.innerHTML='<b>Gio</b><strong>Pilates Reformer</strong><span>19:00 · FitActive</span>';
@@ -139,7 +156,7 @@
       const a=nav.querySelector('a[href="#w-A"]'),b=nav.querySelector('a[href="#w-B"]'),c=nav.querySelector('a[href="#w-C"]');
       if(a)a.textContent='A · Petto/Glutei';if(b)b.textContent='B · Upper/Core';if(c)c.textContent='C · Gambe/Petto';
     }
-    const sub=document.querySelector('header p');if(sub)sub.textContent='Focus: Petto · Core · Glutei';
+    const sub=document.querySelector('header p');if(sub)sub.textContent='Focus: Petto · Core · Glutei · Postura';
   }
 
   function refreshProgress(){
@@ -149,24 +166,15 @@
   }
 
   function bind(){
+    document.querySelectorAll('.phase img').forEach(img=>img.addEventListener('error',()=>img.closest('.phase')?.classList.add('missing'),{once:true}));
     document.querySelectorAll('[data-machine-key]').forEach(el=>{
       const k=el.dataset.machineKey,v=localStorage.getItem(k);
       if(v!==null)el.type==='checkbox'?el.checked=v==='1':el.value=v;
       el.addEventListener(el.type==='checkbox'?'change':'input',()=>{localStorage.setItem(k,el.type==='checkbox'?(el.checked?'1':'0'):el.value);refreshProgress()});
     });
-    document.querySelectorAll('[data-machine-reset]').forEach(btn=>btn.onclick=()=>{
-      const day=btn.dataset.machineReset;
-      document.querySelectorAll(`#w-${day} [data-machine-key]`).forEach(el=>{localStorage.removeItem(el.dataset.machineKey);el.type==='checkbox'?el.checked=false:el.value=''});
-      refreshProgress();
-    });
     refreshProgress();
   }
 
-  function run(){
-    ['A','B','C'].forEach(renderDay);
-    updateSchedule();
-    bind();
-    setTimeout(updateSchedule,0);
-  }
+  function run(){['A','B','C'].forEach(renderDay);updateSchedule();bind();setTimeout(updateSchedule,0)}
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',run,{once:true});else run();
 })();
