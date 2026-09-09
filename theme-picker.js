@@ -5,7 +5,8 @@
     rosa:{label:'Rosa',accent:'#db2777',dark:'#7a173f',soft:'#fce7f3'},
     petrolio:{label:'Petrolio',accent:'#0f766e',dark:'#134e4a',soft:'#ccfbf1'},
     blu:{label:'Blu notte',accent:'#1d4ed8',dark:'#172554',soft:'#dbeafe'},
-    salvia:{label:'Salvia',accent:'#5f7f69',dark:'#334c3b',soft:'#e7efe9'}
+    salvia:{label:'Salvia',accent:'#5f7f69',dark:'#334c3b',soft:'#e7efe9'},
+    nero:{label:'Nero',accent:'#111827',dark:'#05070b',soft:'#e5e7eb'}
   };
 
   function applyTheme(name){
