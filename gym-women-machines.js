@@ -27,8 +27,8 @@
       'https://lafitness.files.wordpress.com/2014/05/abductor-machine-prop-up-and-lean-forward-progression-exercise-4.jpg?w=1576',
       'https://images.ctfassets.net/sby3b3ghdq6f/69gqEECa8zMnaSlLWScKsI/87e56e5e76d4f2e80f712c9189465c5a/Abductor.webp'
     ],
-    reversecrunch:["https://spotebi.com/wp-content/uploads/2014/10/reverse-crunches-exercise-illustration.gif"],
-    plank:["https://spotebi.com/wp-content/uploads/2014/10/plank-exercise-illustration.gif"],
+    reversecrunch:['https://spotebi.com/wp-content/uploads/2014/10/reverse-crunches-exercise-illustration.jpg'],
+    plank:['https://spotebi.com/wp-content/uploads/2014/10/plank-exercise-illustration.jpg'],
     lat:[
       'https://static.showit.co/400/Q6P8x8DKqu1DNp-wm6Fzng/142685/541c0dcf-5308-497b-8e17-8cc25ab77a23_1_201_a.jpg',
       'https://www.factoryfast.com.au/cdn/shop/files/cc7fe61a175eeb951f11a7d526732ae1_1400x.jpg?v=1762941359'
@@ -41,9 +41,9 @@
       'https://cdn.shopify.com/s/files/1/0850/4147/9946/files/336_Shoulder_Front_Press_Framsida_Axelpress.jpg?v=1768383528&width=5000',
       'https://profi-fitness-shop.de/cdn/shop/products/schulterpresse-active-gym-usa-102420_1445x.jpg?v=1665429891'
     ],
-    deadbug:["https://spotebi.com/wp-content/uploads/2015/05/dead-bug-exercise-illustration.gif"],
-    sideplank:["https://spotebi.com/wp-content/uploads/2014/10/side-plank-exercise-illustration.gif"],
-    birddog:["https://spotebi.com/wp-content/uploads/2014/10/bird-dogs-exercise-illustration.gif"],
+    deadbug:['https://spotebi.com/wp-content/uploads/2015/05/dead-bug-exercise-illustration.jpg'],
+    sideplank:['https://spotebi.com/wp-content/uploads/2014/10/side-plank-exercise-illustration.jpg'],
+    birddog:['https://spotebi.com/wp-content/uploads/2014/10/bird-dogs-exercise-illustration.jpg'],
     legextension:[
       'https://saragepstein.wordpress.com/wp-content/uploads/2015/02/img_4724-2.jpg',
       'https://img.magnific.com/free-photo/pretty-woman-working-her-quads-machine-press-gym_231208-3396.jpg?q=80&semt=ais_hybrid&w=740'
@@ -56,7 +56,7 @@
       'https://admin.wellandgood.com/wp-content/uploads/sites/3/2024/09/Cable-glute-kickback.jpg?w=500',
       'https://media.bormm.com/wp-content/uploads/2024/09/cable-machine-glute-exercises.jpg'
     ],
-    heeltaps:["https://spotebi.com/wp-content/uploads/2014/10/alternate-heel-touchers-exercise-illustration.gif"]
+    heeltaps:['https://spotebi.com/wp-content/uploads/2014/10/alternate-heel-touchers-exercise-illustration.jpg']
   };
 
   const PLANS={
@@ -114,8 +114,8 @@
 
   function phases(kind,name){
     const p=PHOTOS[kind]||[];
-    if(["heeltaps","deadbug","birddog","reversecrunch","plank","sideplank"].includes(kind)){
-      return `<div class="phase-pair single core-demo"><figure class="phase"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="${p[0]}" alt="${name} - dimostrazione donna"><figcaption>DIMOSTRAZIONE · SPOTEBI</figcaption></figure></div>`;
+    if(['heeltaps','deadbug','birddog','reversecrunch','plank','sideplank'].includes(kind)){
+      return `<div class="phase-pair single core-demo"><figure class="phase"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="${p[0]}" alt="${name} - dimostrazione statica donna"><figcaption>DIMOSTRAZIONE · DONNA</figcaption></figure></div>`;
     }
     if(p.length===1){
       return `<div class="phase-pair single"><figure class="phase"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="${p[0]}" alt="${name} - donna"><figcaption>POSIZIONE</figcaption></figure></div>`;
@@ -132,7 +132,7 @@
     const p=PLANS[day],sec=document.querySelector('#w-'+day);if(!sec)return;
     const head=sec.querySelector('.head');
     if(head)head.innerHTML=`<div><small>${p.subtitle}</small><h2>${p.title}</h2></div>`;
-    let html='<div class="photo-note"><b>Immagini donna:</b> foto delle macchine e dimostrazioni illustrate del Core. La macchina può avere un design diverso da quella presente in sala.</div>',last='';
+    let html='<div class="photo-note"><b>Immagini donna:</b> foto delle macchine e immagini statiche del Core. La macchina può avere un design diverso da quella presente in sala.</div>',last='';
     p.items.forEach((e,i)=>{if(e[5]!==last){last=e[5];html+=`<div class="group-label">${last}</div>`}html+=card(day,i,e)});
     const list=sec.querySelector('.list');if(list)list.innerHTML=html;
   }
