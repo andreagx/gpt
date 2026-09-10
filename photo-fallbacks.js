@@ -23,24 +23,11 @@
       'https://s3.amazonaws.com/prod.skimble/assets/2711002/image_iphone.jpg',
       'https://images.ctfassets.net/sby3b3ghdq6f/69gqEECa8zMnaSlLWScKsI/87e56e5e76d4f2e80f712c9189465c5a/Abductor.webp'
     ],
-    'reverse crunch':[
-      'https://ss.sport-express.ru/userfiles/materials/177/1771548/large.jpg',
-      'https://assets.bodyspec.com/master/static/dac437e15e29666740c2c5d6f7abc738/b4111/woman_doing_reverse_crunch_on_yoga_mat..jpg'
-    ],
-    'dead bug':[
-      'https://hips.hearstapps.com/hmg-prod/images/dead-bug-67b779894fc50.jpeg?crop=0.917xw%3A0.612xh%3B0.0535xw%2C0.342xh',
-      'https://www.racmn.com/wp-content/uploads/2025/09/wp-DeadBug.jpeg'
-    ],
-    'plank':[
-      'https://yorkfitness.com/cdn/shop/files/86041-1_120x60.5cm.jpg?v=1697803504'
-    ],
-    'side plank':[
-      'https://proworksbottles.com/cdn/shop/products/TPEYogaMat_Black_2_1200x.png?v=1607696097'
-    ],
-    'bird dog':[
-      'https://d1rig8ldkblbsy.cloudfront.net/app/uploads/2020/05/05122353/bird-dog.jpg',
-      'https://img.vevorstatic.com/fr%2FDXYJD5YC8YC0VKN62V0%2Fgoods_img-v2%2Fexercise-mat-m100-1.12.jpg?format=webp&timestamp=1718763560000'
-    ],
+    'reverse crunch':["https://spotebi.com/wp-content/uploads/2014/10/reverse-crunches-exercise-illustration.jpg","https://spotebi.com/wp-content/uploads/2014/10/reverse-crunches-exercise-illustration-300x200.jpg"],
+    'dead bug':["https://spotebi.com/wp-content/uploads/2015/05/dead-bug-exercise-illustration.jpg","https://spotebi.com/wp-content/uploads/2015/05/dead-bug-exercise-illustration-300x200.jpg"],
+    'plank':["https://spotebi.com/wp-content/uploads/2014/10/plank-exercise-illustration.jpg","https://spotebi.com/wp-content/uploads/2014/10/plank-exercise-illustration-300x200.jpg"],
+    'side plank':["https://spotebi.com/wp-content/uploads/2014/10/side-plank-exercise-illustration.jpg","https://spotebi.com/wp-content/uploads/2014/10/side-plank-exercise-illustration-300x200.jpg"],
+    'bird dog':["https://spotebi.com/wp-content/uploads/2014/10/bird-dogs-exercise-illustration.jpg","https://spotebi.com/wp-content/uploads/2014/10/bird-dogs-exercise-illustration-300x200.jpg"],
     'seated row':[
       'https://r2.ensana-media.twodo.cz/2ce1469e-dd6b-4f53-8693-06e4a6dd17dc/7b692c37-8277-4f29-9e91-c946296c48e1/25-08-2025_dcb77454-2be9-4375-80aa-5d4796841c53/file.jpg'
     ],
@@ -56,26 +43,25 @@
     'kickback':[
       'https://cloudfront-us-east-1.images.arcpublishing.com/latribuna/VR5W7OHJE5GR5AK3G6DQJA7TEE.jpeg'
     ],
-    'heel taps':[
-      'https://images.squarespace-cdn.com/content/v1/5b397ebd5b409b31d6223601/1585013240654-QCYOXXCV4XCNL1KAW5JG/Heel%2BTaps.JPG',
-      'https://i.ytimg.com/vi/w2Um9ULrcBI/maxresdefault.jpg'
-    ]
+    'heel taps':["https://spotebi.com/wp-content/uploads/2014/10/alternate-heel-touchers-exercise-illustration.jpg","https://spotebi.com/wp-content/uploads/2014/10/alternate-heel-touchers-exercise-illustration-300x200.jpg"]
   };
 
   function listFor(img){
     const text=((img.alt||'')+' '+(img.closest('.exercise')?.querySelector('h3')?.textContent||'')).toLowerCase();
-    for(const [key,urls] of Object.entries(FALLBACKS)) if(text.includes(key)) return urls;
+    for(const [key,urls] of Object.entries(FALLBACKS).sort((a,b)=>b[0].length-a[0].length)) if(text.includes(key)) return urls;
     return [];
   }
 
   function tryFallback(img){
     if(!(img instanceof HTMLImageElement)||!img.closest('.phase')) return;
     const urls=listFor(img);
-    if(!urls.length) return;
+
     const tried=(img.dataset.photoTried||'').split('|').filter(Boolean);
-    const current=img.currentSrc||img.src||'';
+    const current=img.src||'';
+    if(current&&!tried.includes(current)) tried.push(current);
     const next=urls.find(u=>u!==current&&!tried.includes(u));
-    if(!next) return;
+    img.dataset.photoTried=tried.join('|');
+    if(!next){img.closest('.phase')?.classList.add('missing');return;}
     tried.push(next);
     img.dataset.photoTried=tried.join('|');
     img.closest('.phase')?.classList.remove('missing');
