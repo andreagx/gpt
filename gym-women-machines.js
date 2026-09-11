@@ -27,8 +27,8 @@
       'https://lafitness.files.wordpress.com/2014/05/abductor-machine-prop-up-and-lean-forward-progression-exercise-4.jpg?w=1576',
       'https://images.ctfassets.net/sby3b3ghdq6f/69gqEECa8zMnaSlLWScKsI/87e56e5e76d4f2e80f712c9189465c5a/Abductor.webp'
     ],
-    reversecrunch:['https://spotebi.com/wp-content/uploads/2014/10/reverse-crunches-exercise-illustration.jpg'],
-    plank:['https://spotebi.com/wp-content/uploads/2014/10/plank-exercise-illustration.jpg'],
+    reversecrunch:["https://hips.hearstapps.com/hmg-prod/images/766/images/reverse-crunch-1492648561.jpg?resize=980%3A%2A"],
+    plank:["https://medconsult.bg/media/k2/items/cache/21b5e729f134b63ab65dbce08097f32c_XL.jpg"],
     lat:[
       'https://static.showit.co/400/Q6P8x8DKqu1DNp-wm6Fzng/142685/541c0dcf-5308-497b-8e17-8cc25ab77a23_1_201_a.jpg',
       'https://www.factoryfast.com.au/cdn/shop/files/cc7fe61a175eeb951f11a7d526732ae1_1400x.jpg?v=1762941359'
@@ -41,9 +41,9 @@
       'https://cdn.shopify.com/s/files/1/0850/4147/9946/files/336_Shoulder_Front_Press_Framsida_Axelpress.jpg?v=1768383528&width=5000',
       'https://profi-fitness-shop.de/cdn/shop/products/schulterpresse-active-gym-usa-102420_1445x.jpg?v=1665429891'
     ],
-    deadbug:['https://spotebi.com/wp-content/uploads/2015/05/dead-bug-exercise-illustration.jpg'],
-    sideplank:['https://spotebi.com/wp-content/uploads/2014/10/side-plank-exercise-illustration.jpg'],
-    birddog:['https://spotebi.com/wp-content/uploads/2014/10/bird-dogs-exercise-illustration.jpg'],
+    deadbug:["https://www.racmn.com/wp-content/uploads/2025/09/wp-DeadBug.jpeg"],
+    sideplank:["https://hips.hearstapps.com/hmg-prod/images/plank-forearm-side-plank-746-1653516947.jpg?resize=980:*"],
+    birddog:["https://cdn.vidaativa.pt/uploads/2020/08/jovem-a-praticar-bird-dog.jpg"],
     legextension:[
       'https://saragepstein.wordpress.com/wp-content/uploads/2015/02/img_4724-2.jpg',
       'https://img.magnific.com/free-photo/pretty-woman-working-her-quads-machine-press-gym_231208-3396.jpg?q=80&semt=ais_hybrid&w=740'
@@ -56,7 +56,7 @@
       'https://admin.wellandgood.com/wp-content/uploads/sites/3/2024/09/Cable-glute-kickback.jpg?w=500',
       'https://media.bormm.com/wp-content/uploads/2024/09/cable-machine-glute-exercises.jpg'
     ],
-    heeltaps:['https://spotebi.com/wp-content/uploads/2014/10/alternate-heel-touchers-exercise-illustration.jpg']
+    heeltaps:["https://s3.dualstack.us-east-1.amazonaws.com/busites_www/deniseaustincom/pages/2025_04_28_00.59.05.jpeg"]
   };
 
   const PLANS={
@@ -115,7 +115,7 @@
   function phases(kind,name){
     const p=PHOTOS[kind]||[];
     if(['heeltaps','deadbug','birddog','reversecrunch','plank','sideplank'].includes(kind)){
-      return `<div class="phase-pair single core-demo"><figure class="phase"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="${p[0]}" alt="${name} - dimostrazione statica donna"><figcaption>DIMOSTRAZIONE · DONNA</figcaption></figure></div>`;
+      return `<div class="phase-pair single core-demo"><figure class="phase"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="${p[0]}" alt="${name} - foto donna"><figcaption>FOTO · DONNA</figcaption></figure></div>`;
     }
     if(p.length===1){
       return `<div class="phase-pair single"><figure class="phase"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="${p[0]}" alt="${name} - donna"><figcaption>POSIZIONE</figcaption></figure></div>`;

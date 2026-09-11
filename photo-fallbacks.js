@@ -23,11 +23,11 @@
       'https://s3.amazonaws.com/prod.skimble/assets/2711002/image_iphone.jpg',
       'https://images.ctfassets.net/sby3b3ghdq6f/69gqEECa8zMnaSlLWScKsI/87e56e5e76d4f2e80f712c9189465c5a/Abductor.webp'
     ],
-    'reverse crunch':["https://spotebi.com/wp-content/uploads/2014/10/reverse-crunches-exercise-illustration.jpg","https://spotebi.com/wp-content/uploads/2014/10/reverse-crunches-exercise-illustration-300x200.jpg"],
-    'dead bug':["https://spotebi.com/wp-content/uploads/2015/05/dead-bug-exercise-illustration.jpg","https://spotebi.com/wp-content/uploads/2015/05/dead-bug-exercise-illustration-300x200.jpg"],
-    'plank':["https://spotebi.com/wp-content/uploads/2014/10/plank-exercise-illustration.jpg","https://spotebi.com/wp-content/uploads/2014/10/plank-exercise-illustration-300x200.jpg"],
-    'side plank':["https://spotebi.com/wp-content/uploads/2014/10/side-plank-exercise-illustration.jpg","https://spotebi.com/wp-content/uploads/2014/10/side-plank-exercise-illustration-300x200.jpg"],
-    'bird dog':["https://spotebi.com/wp-content/uploads/2014/10/bird-dogs-exercise-illustration.jpg","https://spotebi.com/wp-content/uploads/2014/10/bird-dogs-exercise-illustration-300x200.jpg"],
+    'reverse crunch':["https://hips.hearstapps.com/hmg-prod/images/766/images/reverse-crunch-1492648561.jpg","https://hips.hearstapps.com/hmg-prod/images/766/images/reverse-crunch-1492648561.jpg?resize=640:*"],
+    'dead bug':["https://cdn.mos.cms.futurecdn.net/5xT5c5rK7iQSQc73RKZysb-1827-80.jpg","https://www.racmn.com/wp-content/uploads/2025/09/wp-DeadBug.jpeg?width=640"],
+    'plank':["https://bi.im-g.pl/im/24/0a/1a/z27305508IER%2CPlank-zrobimy-w-kilku-roznych-wersjach.jpg","https://medconsult.bg/media/k2/items/cache/21b5e729f134b63ab65dbce08097f32c_XL.jpg?width=640"],
+    'side plank':["https://hips.hearstapps.com/hmg-prod/images/plank-forearm-side-plank-746-1653516947.jpg","https://hips.hearstapps.com/hmg-prod/images/plank-forearm-side-plank-746-1653516947.jpg?resize=640:*"],
+    'bird dog':["https://d1rig8ldkblbsy.cloudfront.net/app/uploads/2020/05/05122353/bird-dog.jpg","https://cdn.vidaativa.pt/uploads/2020/08/jovem-a-praticar-bird-dog.jpg?width=640"],
     'seated row':[
       'https://r2.ensana-media.twodo.cz/2ce1469e-dd6b-4f53-8693-06e4a6dd17dc/7b692c37-8277-4f29-9e91-c946296c48e1/25-08-2025_dcb77454-2be9-4375-80aa-5d4796841c53/file.jpg'
     ],
@@ -43,7 +43,7 @@
     'kickback':[
       'https://cloudfront-us-east-1.images.arcpublishing.com/latribuna/VR5W7OHJE5GR5AK3G6DQJA7TEE.jpeg'
     ],
-    'heel taps':["https://spotebi.com/wp-content/uploads/2014/10/alternate-heel-touchers-exercise-illustration.jpg","https://spotebi.com/wp-content/uploads/2014/10/alternate-heel-touchers-exercise-illustration-300x200.jpg"]
+    'heel taps':["https://s3.dualstack.us-east-1.amazonaws.com/busites_www/deniseaustincom/pages/2025_04_28_00.59.05.jpeg?width=980","https://s3.dualstack.us-east-1.amazonaws.com/busites_www/deniseaustincom/pages/2025_04_28_00.59.05.jpeg?width=640"]
   };
 
   function listFor(img){

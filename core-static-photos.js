@@ -1,30 +1,36 @@
 (()=>{
   const CORE_PHOTOS={
-    'reverse crunch':[
-      'https://hips.hearstapps.com/hmg-prod/images/766/images/reverse-crunch-1492648561.jpg?resize=980%3A%2A',
-      'https://assets.bodyspec.com/master/static/dac437e15e29666740c2c5d6f7abc738/b4111/woman_doing_reverse_crunch_on_yoga_mat..jpg'
-    ],
-    'dead bug':[
-      'https://www.racmn.com/wp-content/uploads/2025/09/wp-DeadBug.jpeg',
-      'https://cdn.mos.cms.futurecdn.net/5xT5c5rK7iQSQc73RKZysb-1827-80.jpg'
-    ],
-    'side plank':[
-      'https://static.thcdn.com/images/v2/wp-content/uploads/sites/505/2018/01/18225853/idealfit_kaytlin_studio114.jpg?width=700',
-      'https://hips.hearstapps.com/hmg-prod/images/plank-forearm-side-plank-746-1653516947.jpg?resize=980:*'
-    ],
-    'bird dog':[
-      'https://cdn.vidaativa.pt/uploads/2020/08/jovem-a-praticar-bird-dog.jpg',
-      'https://d1rig8ldkblbsy.cloudfront.net/app/uploads/2020/05/05122353/bird-dog.jpg'
-    ],
-    'heel taps':[
-      'https://s3.dualstack.us-east-1.amazonaws.com/busites_www/deniseaustincom/pages/2025_04_28_00.59.05.jpeg',
-      'https://i.pinimg.com/originals/7d/0c/df/7d0cdfdaef92632528d3802859f4c72f.jpg'
-    ],
-    'plank':[
-      'https://medconsult.bg/media/k2/items/cache/21b5e729f134b63ab65dbce08097f32c_XL.jpg',
-      'https://bi.im-g.pl/im/24/0a/1a/z27305508IER%2CPlank-zrobimy-w-kilku-roznych-wersjach.jpg'
-    ]
-  };
+  "reverse crunch": [
+    "https://hips.hearstapps.com/hmg-prod/images/766/images/reverse-crunch-1492648561.jpg?resize=980%3A%2A",
+    "https://hips.hearstapps.com/hmg-prod/images/766/images/reverse-crunch-1492648561.jpg",
+    "https://hips.hearstapps.com/hmg-prod/images/766/images/reverse-crunch-1492648561.jpg?resize=640:*"
+  ],
+  "dead bug": [
+    "https://www.racmn.com/wp-content/uploads/2025/09/wp-DeadBug.jpeg",
+    "https://cdn.mos.cms.futurecdn.net/5xT5c5rK7iQSQc73RKZysb-1827-80.jpg",
+    "https://www.racmn.com/wp-content/uploads/2025/09/wp-DeadBug.jpeg?width=640"
+  ],
+  "side plank": [
+    "https://hips.hearstapps.com/hmg-prod/images/plank-forearm-side-plank-746-1653516947.jpg?resize=980:*",
+    "https://hips.hearstapps.com/hmg-prod/images/plank-forearm-side-plank-746-1653516947.jpg",
+    "https://hips.hearstapps.com/hmg-prod/images/plank-forearm-side-plank-746-1653516947.jpg?resize=640:*"
+  ],
+  "bird dog": [
+    "https://cdn.vidaativa.pt/uploads/2020/08/jovem-a-praticar-bird-dog.jpg",
+    "https://d1rig8ldkblbsy.cloudfront.net/app/uploads/2020/05/05122353/bird-dog.jpg",
+    "https://cdn.vidaativa.pt/uploads/2020/08/jovem-a-praticar-bird-dog.jpg?width=640"
+  ],
+  "heel taps": [
+    "https://s3.dualstack.us-east-1.amazonaws.com/busites_www/deniseaustincom/pages/2025_04_28_00.59.05.jpeg",
+    "https://s3.dualstack.us-east-1.amazonaws.com/busites_www/deniseaustincom/pages/2025_04_28_00.59.05.jpeg?width=980",
+    "https://s3.dualstack.us-east-1.amazonaws.com/busites_www/deniseaustincom/pages/2025_04_28_00.59.05.jpeg?width=640"
+  ],
+  "plank": [
+    "https://medconsult.bg/media/k2/items/cache/21b5e729f134b63ab65dbce08097f32c_XL.jpg",
+    "https://bi.im-g.pl/im/24/0a/1a/z27305508IER%2CPlank-zrobimy-w-kilku-roznych-wersjach.jpg",
+    "https://medconsult.bg/media/k2/items/cache/21b5e729f134b63ab65dbce08097f32c_XL.jpg?width=640"
+  ]
+};
 
   const style=document.createElement('style');
   style.id='core-static-photos-style';
