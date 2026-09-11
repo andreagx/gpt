@@ -1,72 +1,49 @@
 (()=>{
-  const Y=q=>'https://www.youtube.com/results?search_query='+encodeURIComponent(q);
-  const style=document.createElement('style');
-  style.textContent=`
-    .pink .head{background:#b4558c}.teal .head{background:#2f7d78}
-    .tool-art{min-height:118px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:#faf7fb;border-bottom:1px solid var(--line);padding:16px;color:#5f3c58}
-    .tool-art .ico{font-size:38px;line-height:1}.tool-art b{margin-top:7px;font-size:13px}.tool-art small{margin-top:4px;color:var(--muted);font-size:11px;line-height:1.4}
-    .home-info{grid-column:1/-1;background:#fff7fb;border:1px solid #f2d4e5;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#713d5f}
-    .timetable-wrap{padding:12px}.timetable-note{background:#ecfdf3;border:1px solid #abefc6;border-radius:12px;padding:12px;color:#067647;font-size:12px;line-height:1.5}
-    .timetable-grid{display:grid;grid-template-columns:1fr;gap:9px;margin-top:10px}.time-day{border:1px solid var(--line);border-radius:12px;padding:11px;background:#fbfcfe}.time-day h3{margin:0 0 7px;font-size:14px}.time-day p{margin:0;color:var(--muted);font-size:12px}.slot{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-top:1px solid #eef1f4;font-size:12px}.slot:first-of-type{border-top:0}.slot b{color:#172033}.slot span{color:var(--muted);text-align:right}.no-class{color:#98a2b3;font-size:12px}
-    @media(min-width:700px){.timetable-grid{grid-template-columns:repeat(2,1fr)}}
-  `;
-  document.head.appendChild(style);
-
-  const nav=document.querySelector('nav');
-  if(nav){
-    if(!nav.querySelector('a[href="#w-PX"]')) nav.insertAdjacentHTML('beforeend','<a href="#w-PX">Pilates + attrezzi</a>');
-    if(!nav.querySelector('a[href="#w-PS"]')) nav.insertAdjacentHTML('beforeend','<a href="#w-PS">Orari Pilates</a>');
-  }
-
-  const exercises=[
-    ['Mobilità toracica sul rullo','Foam roller / rullo Pilates','2–3 min','—',Y('Pilates foam roller thoracic mobility tutorial'),'🧘','RULLO'],
-    ['Bridge con mini-band','Mini-band sopra le ginocchia','3 × 15','30 s',Y('Pilates glute bridge mini band proper form'),'🟣','ELASTICO'],
-    ['Clamshell con mini-band','Mini-band','3 × 12–15 / lato','30 s',Y('Pilates clamshell resistance band proper form'),'🟣','ELASTICO'],
-    ['Side leg lift con elastico','Mini-band o elastico corto','3 × 12–15 / lato','30 s',Y('Pilates side leg lift resistance band tutorial'),'🟣','ELASTICO'],
-    ['Roll down assistito con elastico','Elastico lungo','3 × 8–10','30 s',Y('Pilates roll down resistance band tutorial'),'🟣','ELASTICO'],
-    ['Hundred con pesi leggeri','2 manubri da 0,5–2 kg','1 × 100 pulsazioni','—',Y('Pilates hundred with light weights tutorial'),'🏋️','PESI LEGGERI'],
-    ['Chest press sul rullo','Rullo + 2 manubri leggeri','3 × 10–12','30–45 s',Y('foam roller dumbbell chest press core stability tutorial'),'🏋️','PESI + RULLO'],
-    ['Dead bug con reach dei pesi','Tappetino + 1–2 manubri leggeri','3 × 8–10 / lato','30 s',Y('dead bug dumbbell reach proper form'),'🏋️','PESI LEGGERI'],
-    ['Bridge con piedi sul rullo','Foam roller / rullo Pilates','3 × 10–12','30–45 s',Y('Pilates bridge feet on foam roller tutorial'),'🧘','RULLO'],
-    ['Spine stretch con rullo','Foam roller / rullo Pilates','2 × 8–10','30 s',Y('Pilates spine stretch foam roller tutorial'),'🧘','RULLO'],
-    ['Mermaid con elastico','Elastico lungo','2 × 8 / lato','30 s',Y('Pilates mermaid resistance band tutorial'),'🟣','ELASTICO'],
-    ['Defaticamento e rilascio','Rullo Pilates','3–5 min','—',Y('Pilates foam roller cool down mobility'),'🧘','RULLO']
+  const Y=q=>'https://www.youtube.com/results?search_query='+encodeURIComponent('Pilates '+q+' tutorial');
+  // Stable IDs retain saved entries for exercises from the previous equipment list.
+  const groups=[
+    {id:'w-PB',title:'Corpo libero',equipment:'Tappetino',note:'Parti da qui: respirazione, mobilità e controllo. Un giro richiede circa 10–15 minuti.',items:[
+      ['breathing','Respirazione laterale','6–8 respiri','15 s','Supina, ginocchia piegate e mani sulle costole. Inspira allargando le costole ai lati; espira lentamente senza irrigidire il collo.','lateral breathing beginner'],
+      ['pelvic-curl','Ponte articolato','2 × 8','30 s','Piedi a terra alla larghezza del bacino. Espira e solleva il bacino gradualmente; scendi lentamente mantenendo le ginocchia allineate.','pelvic curl beginner'],
+      ['toe-taps','Toe taps alternati','2 × 8 / lato','30 s','Supina con gambe a tavolino, abbassa un piede alla volta e torna. Riduci il movimento se la schiena si inarca; per facilitare lascia un piede a terra.','toe taps beginner'],
+      ['side-kick','Side kick preparatorio','2 × 8 / lato','30 s','Sul fianco, gamba inferiore piegata. Sposta lentamente la gamba superiore avanti e indietro senza ruotare il bacino.','side kick beginner'],
+      ['cat','Cat stretch','6–8 movimenti','15 s','A quattro appoggi, espira arrotondando la schiena e inspira tornando neutra. Muoviti senza forzare collo o zona lombare.','cat stretch beginner']
+    ]},
+    {id:'w-PX',title:'Elastici',equipment:'Mini-band ed elastico lungo leggero',note:'Usa una resistenza che permetta un movimento fluido. Un giro richiede circa 12–18 minuti.',items:[
+      ['2','Bridge con mini-band','2 × 12','30 s','Mini-band sopra le ginocchia, piedi a terra. Solleva il bacino mantenendo una leggera tensione verso l’esterno; evita di aprire troppo le ginocchia.','glute bridge mini band'],
+      ['3','Clamshell con mini-band','2 × 12 / lato','30 s','Sul fianco con ginocchia piegate e talloni uniti. Apri il ginocchio superiore senza inclinare il busto all’indietro.','clamshell resistance band'],
+      ['4','Side leg lift con elastico','2 × 10 / lato','30 s','Mini-band sopra le ginocchia, sdraiata sul fianco. Solleva poco la gamba superiore mantenendo il piede rivolto in avanti e il bacino fermo.','side lying leg lift mini band'],
+      ['band-row','Remata seduta con elastico','2 × 12','30 s','Elastico lungo intorno alla parte centrale dei piedi, ginocchia morbide. Porta i gomiti indietro senza alzare le spalle; controlla che l’elastico non scivoli.','seated resistance band row'],
+      ['band-open','Aperture delle braccia','2 × 10','30 s','Seduta alta, elastico leggero tra le mani davanti al petto. Allarga le braccia con gomiti morbidi, senza spingere le costole in avanti.','resistance band arm openings']
+    ]},
+    {id:'w-PBALL',title:'Palla piccola',equipment:'Soft ball Pilates morbida da circa 20–25 cm',note:'Gonfiala solo quanto basta per mantenerla morbida. Un giro richiede circa 10–15 minuti.',items:[
+      ['ball-squeeze','Pressioni leggere tra le ginocchia','2 × 10','20 s','Supina con piedi a terra e palla tra le ginocchia. Espira stringendo delicatamente per 2 secondi, poi allenta senza perdere la palla.','small ball knee squeeze'],
+      ['ball-bridge','Ponte con palla tra le ginocchia','2 × 8','30 s','Piedi a terra e palla tra le ginocchia. Solleva e abbassa il bacino con una pressione leggera e costante sulla palla.','small ball bridge between knees'],
+      ['ball-curl','Curl up con palla tra le ginocchia','2 × 8','30 s','Supina, piedi a terra e mani dietro la testa. Espira sollevando appena testa e scapole, senza tirare il collo; torna giù lentamente.','small ball curl up knees'],
+      ['ball-spine','Spine stretch con palla','2 × 6','20 s','Seduta con ginocchia leggermente piegate e palla davanti. Falla rotolare in avanti allungando la schiena, poi ritorna senza slanci.','small ball spine stretch forward'],
+      ['ball-mermaid','Mermaid con palla','6 / lato','20 s','Seduta comoda, una mano sulla palla al tuo fianco. Falla rotolare poco verso l’esterno mentre allunghi il fianco opposto; mantieni il bacino appoggiato.','small ball mermaid']
+    ]},
+    {id:'w-PR',title:'Rullo',equipment:'Foam roller / rullo Pilates',note:'Movimenti piccoli su un tappetino stabile. Il rullo lungo serve solo per l’esercizio delle braccia. Un giro richiede circa 8–12 minuti.',items:[
+      ['roller-arms','Aperture delle braccia sul rullo lungo','2 × 8','30 s','Rullo lungo lungo la colonna, con testa e bacino sostenuti e piedi larghi a terra. Apri lentamente le braccia; se hai un rullo corto esegui sul tappetino.','foam roller supine arm openings'],
+      ['10','Spine stretch con rullo','2 × 6','20 s','Seduta con gambe comode e mani sul rullo davanti. Fallo scorrere avanti accompagnando il busto, poi ritorna senza spingere oltre il tuo allungamento.','foam roller spine stretch'],
+      ['roller-cat','Cat stretch con mani sul rullo','6–8 movimenti','20 s','In ginocchio, mani sul rullo davanti. Arrotonda dolcemente la schiena e torna neutra facendo scorrere il rullo di pochi centimetri.','foam roller cat stretch'],
+      ['roller-mermaid','Mermaid con rullo','6 / lato','20 s','Seduta comoda, una mano sul rullo al fianco. Allontanalo lentamente per allungare il lato opposto, poi torna al centro senza caricare il polso.','foam roller mermaid'],
+      ['roller-calf','Rilascio dolce dei polpacci','30–45 s / lato','20 s','Seduta con un polpaccio sul rullo e l’altro piede a terra. Scorri lentamente sul muscolo con pressione leggera, evitando ginocchio e tendine d’Achille.','foam roller calf release gentle']
+    ]}
   ];
-
-  function key(i,s){return 'gym-PX-'+(i+1)+'-'+s}
-  function card(e,i){
-    return `<article class="exercise" data-workout="PX"><div class="tool-art"><div class="ico">${e[5]}</div><b>${e[6]}</b><small>Sessione Pilates a casa · esecuzione controllata</small></div><div class="body"><div class="top"><span class="num">${i+1}</span><div><h3>${e[0]}</h3><div class="meta">🧰 ${e[1]}<br>🔁 ${e[2]} · ⏱ ${e[3]}</div></div><label class="done"><input type="checkbox" data-pxkey="${key(i,'done')}">✓</label></div><div class="track"><label>Peso / resistenza<input placeholder="es. 1 kg / band media" data-pxkey="${key(i,'load')}"></label><label>Rip. fatte<input inputmode="numeric" placeholder="es. 12" data-pxkey="${key(i,'reps')}"></label></div><a class="video" href="${e[4]}" target="_blank" rel="noopener">▶ Guarda esecuzione corretta</a><details><summary>Note personali</summary><textarea rows="2" data-pxkey="${key(i,'note')}" placeholder="Tecnica, resistenza, sensazioni…"></textarea></details></div></article>`;
-  }
-
-  const sec=document.createElement('section');
-  sec.className='workout pink'; sec.id='w-PX';
-  sec.innerHTML=`<div class="head"><div><small>Pilates a casa</small><h2>Elastici + pesi leggeri + rullo · 45–55 min</h2></div><button data-pxreset>Azzera</button></div><div class="list"><div class="home-info"><b>Attrezzatura:</b> tappetino, mini-band/elastico lungo, 2 manubri leggeri (indicativamente 0,5–2 kg) e foam roller/rullo Pilates. Mantieni movimenti lenti e controllo del core; non serve aumentare molto il carico.</div>${exercises.map(card).join('')}</div>`;
-  const p=document.querySelector('#w-P');
-  if(p) p.insertAdjacentElement('afterend',sec); else document.querySelector('#app')?.appendChild(sec);
-
-  const sched=document.createElement('section');
-  sched.className='workout teal'; sched.id='w-PS';
-  sched.innerHTML=`<div class="head"><div><small>FitActive Castellanza</small><h2>Orari corsi Pilates</h2></div></div><div class="timetable-wrap"><div class="timetable-note"><b>Palinsesto verificato.</b><br>Orari Pilates della sede FitActive Castellanza, Via Asti 5. Gli orari dei corsi possono essere modificati dalla palestra: controlla sempre il palinsesto FitActive prima di partire.</div><div class="timetable-grid">
-    <div class="time-day"><h3>Lunedì</h3><div class="no-class">Nessun Pilates in palinsesto</div></div>
-    <div class="time-day"><h3>Martedì</h3><div class="slot"><b>11:15–12:00</b><span>Pilates · Sala corsi</span></div></div>
-    <div class="time-day"><h3>Mercoledì</h3><div class="slot"><b>10:30–11:15</b><span>Pilates · Sala corsi</span></div><div class="slot"><b>12:45–13:30</b><span>Pilates · Sala corsi</span></div><div class="slot"><b>20:00–21:00</b><span>Pilates · Sala corsi</span></div></div>
-    <div class="time-day"><h3>Giovedì</h3><div class="no-class">Nessun Pilates in palinsesto</div></div>
-    <div class="time-day"><h3>Venerdì</h3><div class="slot"><b>09:00–09:45</b><span>Pilates · Sala corsi</span></div></div>
-    <div class="time-day"><h3>Sabato</h3><div class="no-class">Nessun Pilates in palinsesto</div></div>
-  </div></div>`;
-  sec.insertAdjacentElement('afterend',sched);
-
-  document.querySelectorAll('[data-pxkey]').forEach(el=>{
-    const k=el.dataset.pxkey,v=localStorage.getItem(k);
-    if(v!==null) el.type==='checkbox'?el.checked=(v==='1'):el.value=v;
-    el.addEventListener(el.type==='checkbox'?'change':'input',()=>{
-      localStorage.setItem(k,el.type==='checkbox'?(el.checked?'1':'0'):el.value;
-    });
-  });
-  sec.querySelector('[data-pxreset]')?.addEventListener('click',()=>{
-    sec.querySelectorAll('[data-pxkey]').forEach(el=>{localStorage.removeItem(el.dataset.pxkey);el.type==='checkbox'?el.checked=false:el.value=''});
-  });
-
-  const th=document.querySelectorAll('.schedule>div')[3];
-  if(th){const s=th.querySelector('span');if(s)s.textContent='Casa o corso palestra';}
+  const style=document.createElement('style');
+  style.textContent=`.pilates-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}.pilates-links a{display:block;padding:13px;border:1px solid var(--line);border-radius:11px;background:var(--app-soft);color:var(--app-dark);font-size:13px;font-weight:800;text-decoration:none}.pilates-group{scroll-margin-top:180px}.pilates-group .home-info{grid-column:1/-1}.pilates-cue{font-size:13px;line-height:1.55;color:#344054;margin:12px 0}.pilates-group .head small{font-size:10px}.pilates-progress{font-size:12px;margin:0 0 8px;color:var(--muted)}#w-P .list{display:block}.pilates-equipment{font-size:12px;line-height:1.5;color:var(--muted)}`;
+  document.head.appendChild(style);
+  const intro=document.querySelector('#w-P');if(!intro)return;
+  intro.innerHTML=`<div class="head"><div><small>Pilates a casa</small><h2>Scegli il tuo allenamento</h2></div></div><div class="list"><div class="home-info">Inizia con respirazione e Cat stretch, poi scegli <b>un blocco</b> in base all’attrezzatura disponibile. Parti da un giro; aggiungi il secondo se mantieni controllo e respiro regolare. Recupera 30–60 secondi tra i blocchi. Interrompi il movimento se provoca dolore.</div><div class="pilates-links">${groups.map(g=>`<a href="#${g.id}">${g.title} · ${g.items.length} esercizi</a>`).join('')}</div><p class="pilates-equipment">Sessione breve: corpo libero. Sessione con attrezzi: riscaldamento + elastici oppure palla piccola; termina con mobilità sul rullo. Non occorre eseguire tutti e quattro i blocchi insieme.</p></div>`;
+  function card(e,i,g){const key='gym-PX-'+e[0]+'-';return `<article class="exercise" data-workout="PX"><div class="body"><div class="top"><span class="num">${i+1}</span><div><h3>${e[1]}</h3><div class="meta">${e[2]} · Recupero ${e[3]}</div></div><label class="done"><input aria-label="Completa ${e[1]}" type="checkbox" data-pxkey="${key}done">✓</label></div><p class="pilates-cue">${e[4]}</p><div class="track"><label>Resistenza / attrezzo<input placeholder="es. leggera" data-pxkey="${key}load"></label><label>Rip. fatte<input inputmode="numeric" placeholder="es. 8" data-pxkey="${key}reps"></label></div><a class="video" href="${Y(e[5])}" target="_blank" rel="noopener">▶ Cerca tutorial dell’esercizio</a><details><summary>Note personali</summary><textarea rows="2" data-pxkey="${key}note" placeholder="Tecnica, sensazioni…"></textarea></details></div></article>`;}
+  let anchor=intro;
+  groups.forEach(g=>{document.getElementById(g.id)?.remove();const sec=document.createElement('section');sec.id=g.id;sec.className='workout pink pilates-group';sec.innerHTML=`<div class="head"><div><small>Pilates casa · ${g.equipment}</small><h2>${g.title}</h2></div></div><div class="list"><div class="home-info"><p class="pilates-progress" aria-live="polite"></p>${g.note}</div>${g.items.map((e,i)=>card(e,i,g)).join('')}</div>`;anchor.insertAdjacentElement('afterend',sec);anchor=sec;});
+  // Let pilates-hours.js populate its existing timetable after all home groups.
+  let hours=document.getElementById('w-PS');if(!hours){hours=document.createElement('section');hours.id='w-PS';hours.className='workout teal';}anchor.insertAdjacentElement('afterend',hours);
+  document.querySelector('nav a[href="#w-PX"]')?.remove();
+  function progress(){document.querySelectorAll('.pilates-group').forEach(s=>{const boxes=[...s.querySelectorAll('input[type="checkbox"]')];s.querySelector('.pilates-progress').textContent=boxes.filter(b=>b.checked).length+' / '+boxes.length+' completati';});}
+  document.querySelectorAll('.pilates-group [data-pxkey]').forEach(el=>{const k=el.dataset.pxkey,v=localStorage.getItem(k);if(v!==null){if(el.type==='checkbox')el.checked=v==='1';else el.value=v;}el.addEventListener(el.type==='checkbox'?'change':'input',()=>{localStorage.setItem(k,el.type==='checkbox'?(el.checked?'1':'0'):el.value);progress();});});
+  document.addEventListener('click',e=>{if(e.target.closest('#reset-all-workouts'))setTimeout(progress,0);});
+  progress();
 })();

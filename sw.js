@@ -1,4 +1,4 @@
-const CACHE='scheda-palestra-github-v22';
+const CACHE='scheda-palestra-github-v23';
 const ASSETS=['./','./index.html','./manifest.webmanifest','./icon.svg','./gym-women-machines.js','./photo-fallbacks.js','./pilates-extra.js','./pilates-hours.js','./reset-all.js','./theme-picker.js'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil((async()=>{
