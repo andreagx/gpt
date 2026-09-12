@@ -1,5 +1,36 @@
 (()=>{
-  const Y=q=>'https://www.youtube.com/results?search_query='+encodeURIComponent('Pilates '+q+' tutorial');
+  const Y=q=>'https://www.youtube.com/results?search_query='+encodeURIComponent('Pilates '+q+' proper form tutorial');
+  const VIDEO={
+    breathing:'https://www.youtube.com/watch?v=fbGtZqVN8HA',
+    'pelvic-curl':'https://youtu.be/979En_Ufvuw',
+    'toe-taps':'https://youtu.be/VHn4WVbnbJQ',
+    'side-kick':'https://www.youtube.com/watch?v=ROojpzz1ta0',
+    '2':'https://youtu.be/ZdzYxMni-BY',
+    '3':'https://youtu.be/23sDHTOzfZk',
+    '4':'https://youtu.be/Vb8rkZvU6aY',
+    'ball-bridge':'https://www.youtube.com/watch?v=wZrUMkIF6rg'
+  };
+  const IMAGE={
+    cat:'https://www.fif.it/images/riviste/performance_04_2015/step1.jpg',
+    '3':'https://i.pinimg.com/736x/3d/89/81/3d89812a433c49763a729ab04dbfc0b3.jpg',
+    'ball-squeeze':'https://cdntwrunning.biji.co/7bb939517619a011ff3dd2839107e97838b3eff8baf56627478ec76a704e9b52.jpg',
+    'ball-bridge':'https://cdn.shopify.com/s/files/1/0577/9180/7654/files/rehabilitation-exercises.png?v=1776316532',
+    'roller-arms':'https://stat.ameba.jp/user_images/20250626/12/sokenbi0423/96/b3/j/o1000100015623436627.jpg',
+    'roller-calf':'https://images.squarespace-cdn.com/content/646a07cd8e9b3f016a936b8d/1686917395840-8LNT717BS0HVE57FZ6EV/YoganicSept2020%40mimmaree6975.jpg?content-type=image%2Fjpeg&format=1500w'
+  };
+  const GROUP_IMAGE={
+    'w-PB':'https://www.fif.it/images/riviste/performance_04_2015/step1.jpg',
+    'w-PX':'https://i.pinimg.com/736x/3d/89/81/3d89812a433c49763a729ab04dbfc0b3.jpg',
+    'w-PBALL':'https://cdn.shopify.com/s/files/1/0577/9180/7654/files/rehabilitation-exercises.png?v=1776316532',
+    'w-PR':'https://stat.ameba.jp/user_images/20250626/12/sokenbi0423/96/b3/j/o1000100015623436627.jpg'
+  };
+  const videoId=url=>{const m=(url||'').match(/(?:youtu\.be\/|[?&]v=)([A-Za-z0-9_-]{6,})/);return m&&m[1];};
+  const media=(e,g)=>{
+    const video=VIDEO[e[0]]||Y(e[5]);
+    const id=videoId(video);
+    const image=IMAGE[e[0]]||(id?`https://i.ytimg.com/vi/${id}/hqdefault.jpg`:GROUP_IMAGE[g.id]);
+    return {video,image,direct:!!VIDEO[e[0]]};
+  };
   // Stable IDs retain saved entries for exercises from the previous equipment list.
   const groups=[
     {id:'w-PB',title:'Corpo libero',equipment:'Tappetino',note:'Parti da qui: respirazione, mobilità e controllo. Un giro richiede circa 10–15 minuti.',items:[
@@ -32,11 +63,11 @@
     ]}
   ];
   const style=document.createElement('style');
-  style.textContent=`.pilates-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}.pilates-links a{display:block;padding:13px;border:1px solid var(--line);border-radius:11px;background:var(--app-soft);color:var(--app-dark);font-size:13px;font-weight:800;text-decoration:none}.pilates-group{scroll-margin-top:180px}.pilates-group .home-info{grid-column:1/-1}.pilates-cue{font-size:13px;line-height:1.55;color:#344054;margin:12px 0}.pilates-group .head small{font-size:10px}.pilates-progress{font-size:12px;margin:0 0 8px;color:var(--muted)}#w-P .list{display:block}.pilates-equipment{font-size:12px;line-height:1.5;color:var(--muted)}`;
+  style.textContent=`.pilates-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}.pilates-links a{display:block;padding:13px;border:1px solid var(--line);border-radius:11px;background:var(--app-soft);color:var(--app-dark);font-size:13px;font-weight:800;text-decoration:none}.pilates-group{scroll-margin-top:180px}.pilates-group .home-info{grid-column:1/-1}.pilates-cue{font-size:13px;line-height:1.55;color:#344054;margin:12px 0}.pilates-group .head small{font-size:10px}.pilates-progress{font-size:12px;margin:0 0 8px;color:var(--muted)}#w-P .list{display:block}.pilates-equipment{font-size:12px;line-height:1.5;color:var(--muted)}.pilates-media{margin:0;background:#f8fafc;border-bottom:1px solid var(--line);overflow:hidden}.pilates-media img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:#f2f4f7}.pilates-media figcaption{padding:7px 10px;font-size:10px;font-weight:900;letter-spacing:.08em;color:#667085}.pilates-video-note{display:block;margin-top:7px;font-size:10px;color:var(--muted)}`;
   document.head.appendChild(style);
   const intro=document.querySelector('#w-P');if(!intro)return;
   intro.innerHTML=`<div class="head"><div><small>Pilates a casa</small><h2>Scegli il tuo allenamento</h2></div></div><div class="list"><div class="home-info">Inizia con respirazione e Cat stretch, poi scegli <b>un blocco</b> in base all’attrezzatura disponibile. Parti da un giro; aggiungi il secondo se mantieni controllo e respiro regolare. Recupera 30–60 secondi tra i blocchi. Interrompi il movimento se provoca dolore.</div><div class="pilates-links">${groups.map(g=>`<a href="#${g.id}">${g.title} · ${g.items.length} esercizi</a>`).join('')}</div><p class="pilates-equipment">Sessione breve: corpo libero. Sessione con attrezzi: riscaldamento + elastici oppure palla piccola; termina con mobilità sul rullo. Non occorre eseguire tutti e quattro i blocchi insieme.</p></div>`;
-  function card(e,i,g){const key='gym-PX-'+e[0]+'-';return `<article class="exercise" data-workout="PX"><div class="body"><div class="top"><span class="num">${i+1}</span><div><h3>${e[1]}</h3><div class="meta">${e[2]} · Recupero ${e[3]}</div></div><label class="done"><input aria-label="Completa ${e[1]}" type="checkbox" data-pxkey="${key}done">✓</label></div><p class="pilates-cue">${e[4]}</p><div class="track"><label>Resistenza / attrezzo<input placeholder="es. leggera" data-pxkey="${key}load"></label><label>Rip. fatte<input inputmode="numeric" placeholder="es. 8" data-pxkey="${key}reps"></label></div><a class="video" href="${Y(e[5])}" target="_blank" rel="noopener">▶ Cerca tutorial dell’esercizio</a><details><summary>Note personali</summary><textarea rows="2" data-pxkey="${key}note" placeholder="Tecnica, sensazioni…"></textarea></details></div></article>`;}
+  function card(e,i,g){const key='gym-PX-'+e[0]+'-',m=media(e,g);return `<article class="exercise" data-workout="PX"><figure class="pilates-media"><img loading="lazy" decoding="async" referrerpolicy="no-referrer" src="${m.image}" alt="${e[1]} - esempio di esecuzione" onerror="this.closest('figure').style.display='none'"><figcaption>ESECUZIONE · RIFERIMENTO VISIVO</figcaption></figure><div class="body"><div class="top"><span class="num">${i+1}</span><div><h3>${e[1]}</h3><div class="meta">${e[2]} · Recupero ${e[3]}</div></div><label class="done"><input aria-label="Completa ${e[1]}" type="checkbox" data-pxkey="${key}done">✓</label></div><p class="pilates-cue">${e[4]}</p><div class="track"><label>Resistenza / attrezzo<input placeholder="es. leggera" data-pxkey="${key}load"></label><label>Rip. fatte<input inputmode="numeric" placeholder="es. 8" data-pxkey="${key}reps"></label></div><a class="video" href="${m.video}" target="_blank" rel="noopener">▶ ${m.direct?'Guarda video esecuzione corretta':'Trova video esecuzione corretta'}</a>${m.direct?'':'<span class="pilates-video-note">Ricerca YouTube già impostata sul nome esatto dell’esercizio.</span>'}<details><summary>Note personali</summary><textarea rows="2" data-pxkey="${key}note" placeholder="Tecnica, sensazioni…"></textarea></details></div></article>`;}
   let anchor=intro;
   groups.forEach(g=>{document.getElementById(g.id)?.remove();const sec=document.createElement('section');sec.id=g.id;sec.className='workout pink pilates-group';sec.innerHTML=`<div class="head"><div><small>Pilates casa · ${g.equipment}</small><h2>${g.title}</h2></div></div><div class="list"><div class="home-info"><p class="pilates-progress" aria-live="polite"></p>${g.note}</div>${g.items.map((e,i)=>card(e,i,g)).join('')}</div>`;anchor.insertAdjacentElement('afterend',sec);anchor=sec;});
   // Let pilates-hours.js populate its existing timetable after all home groups.
